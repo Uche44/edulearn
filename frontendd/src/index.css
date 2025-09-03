@@ -1,0 +1,48 @@
+
+@import "tailwindcss";
+
+/* Background gradient */
+/* body {
+  @apply bg-gradient-to-b from-violet-500 via-violet-700 to-violet-900 min-h-screen flex items-center justify-center;
+} */
+
+body {
+  @apply bg-gray-200;
+}
+
+/* Floating animation (Y-axis) */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25px);
+  }
+}
+
+/* Floating animation (X-axis) */
+@keyframes floatX {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(25px);
+  }
+}
+
+/* Utility classes for animations */
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+.animate-floatX {
+  animation: floatX 12s ease-in-out infinite;
+}
+
+/* Glassmorphism violet */
+.bg-violet-glass {
+  background-color: rgba(139, 92, 246, 0.2);
+  backdrop-filter: blur(12px);
+}
