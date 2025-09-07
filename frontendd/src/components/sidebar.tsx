@@ -1,0 +1,55 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+import {
+  FaHome,
+  FaChalkboardTeacher,
+  FaVideo,
+  FaPlayCircle,
+  FaFolderOpen,
+} from "react-icons/fa";
+
+const Sidebar = () => {
+  const sidebarItems = [
+    { icon: <FaHome />, text: "Dashboard", path: "/" },
+    { icon: <FaChalkboardTeacher />, text: "Classroom", path: "/classroom" },
+    { icon: <FaVideo />, text: "Live Lessons", path: "/live" },
+    { icon: <FaPlayCircle />, text: "Recorded Lessons", path: "/recorded" },
+    { icon: <FaFolderOpen />, text: "Video Library", path: "/library" },
+  ];
+
+  return (
+    <aside className="bg-white absolute py-10 w-[70%] md:w-[23%] h-screen flex flex-col items-center shadow-lg">
+      {/* Logo / Branding */}
+      <div className="mb-10 flex flex-col items-center">
+        <img
+          src="/logo.png"
+          alt="Learnthru Logo"
+          className="w-16 h-16 mb-2"
+        />
+        <h1 className="font-bold text-2xl">Learnthru</h1>
+      </div>
+
+      {/* Sidebar Menu */}
+      <nav className="flex flex-col gap-2 w-full px-6">
+        {sidebarItems.map((item, index) => (
+          <NavLink
+            key={index}
+            to={item.path}
+            className={({ isActive }) =>
+              `flex items-center gap-4 cursor-pointer text-lg px-4 py-2 rounded-md transition ${
+                isActive
+                  ? "bg-blue-100 text-blue-600 font-semibold"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`
+            }
+          >
+            <span className="text-xl">{item.icon}</span>
+            <span>{item.text}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+  );
+};
+
+export default Sidebar;

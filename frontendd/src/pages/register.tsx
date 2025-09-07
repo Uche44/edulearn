@@ -4,7 +4,7 @@ const Register: React.FC = () => {
   return (
     <div>
       <Form
-        route="api/user/register/"
+        route="/api/user/register/"
         method="register"
       />
     </div>
