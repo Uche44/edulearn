@@ -24,7 +24,7 @@ const RegisterAndLogOut: React.FC = () => {
 
 const router = createBrowserRouter([
   {
-    path: "/dashboard",
+    path: "/",
     element: (
       <ProtectedRoutes>
         <Dashboard />
