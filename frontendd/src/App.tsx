@@ -8,6 +8,7 @@ import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import RegisterClass from "./pages/classreg";
 // import NotFound from "./components/NotFound";
 
 // Component to clear localStorage and redirect to /register
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
   {
     path: "/register-logout",
     element: <RegisterAndLogOut />,
+  },
+  {
+    path: "/register-class",
+    element: (
+      <ProtectedRoutes>
+        <RegisterClass />
+      </ProtectedRoutes>
+    ),
   },
   // {
   //   path: "*",
