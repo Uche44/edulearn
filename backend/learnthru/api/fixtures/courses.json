@@ -1,0 +1,226 @@
+[
+  {
+    "model": "api.instructor",
+    "pk": 1,
+    "fields": { "name": "Prof. John Doe", "bio": "Expert in Algebra" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 2,
+    "fields": { "name": "Dr. Jane Smith", "bio": "Specialist in Geometry" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 3,
+    "fields": { "name": "Dr. Albert Newton", "bio": "Focus on Mechanics" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 4,
+    "fields": {
+      "name": "Prof. Marie Curie",
+      "bio": "Specialist in Nuclear Physics"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 5,
+    "fields": {
+      "name": "Dr. Rosalind Franklin",
+      "bio": "Expert in Molecular Chemistry"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 6,
+    "fields": {
+      "name": "Prof. Dmitri Mendeleev",
+      "bio": "Specialist in Periodic Table"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 7,
+    "fields": {
+      "name": "Dr. Charles Darwin",
+      "bio": "Evolutionary Biology Specialist"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 8,
+    "fields": {
+      "name": "Prof. Barbara McClintock",
+      "bio": "Expert in Genetics"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 9,
+    "fields": {
+      "name": "Prof. Alan Turing",
+      "bio": "Pioneer of Computer Science"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 10,
+    "fields": { "name": "Dr. Ada Lovelace", "bio": "First Computer Programmer" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 11,
+    "fields": { "name": "Dr. Howard Zinn", "bio": "Expert in Social History" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 12,
+    "fields": {
+      "name": "Prof. Mary Beard",
+      "bio": "Specialist in Ancient Rome"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 13,
+    "fields": { "name": "Prof. Socrates", "bio": "Classical Greek Philosopher" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 14,
+    "fields": {
+      "name": "Dr. Simone de Beauvoir",
+      "bio": "Existentialist Philosopher"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 15,
+    "fields": { "name": "Dr. Adam Smith", "bio": "Father of Modern Economics" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 16,
+    "fields": {
+      "name": "Prof. Amartya Sen",
+      "bio": "Specialist in Welfare Economics"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 17,
+    "fields": {
+      "name": "Prof. Leonardo da Vinci",
+      "bio": "Master of Renaissance Art"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 18,
+    "fields": { "name": "Dr. Frida Kahlo", "bio": "Specialist in Modern Art" }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 19,
+    "fields": {
+      "name": "Prof. Ludwig van Beethoven",
+      "bio": "Composer and Pianist"
+    }
+  },
+  {
+    "model": "api.instructor",
+    "pk": 20,
+    "fields": { "name": "Dr. Fela Kuti", "bio": "Afrobeat Pioneer" }
+  },
+
+  {
+    "model": "api.course",
+    "pk": 1,
+    "fields": {
+      "title": "Mathematics",
+      "description": "Basic Math Course",
+      "instructors": [1, 2]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 2,
+    "fields": {
+      "title": "Physics",
+      "description": "Intro to Physics",
+      "instructors": [3, 4]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 3,
+    "fields": {
+      "title": "Chemistry",
+      "description": "Foundations of Chemistry",
+      "instructors": [5, 6]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 4,
+    "fields": {
+      "title": "Biology",
+      "description": "Introduction to Biology",
+      "instructors": [7, 8]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 5,
+    "fields": {
+      "title": "Computer Science",
+      "description": "Fundamentals of Programming",
+      "instructors": [9, 10]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 6,
+    "fields": {
+      "title": "History",
+      "description": "World History Overview",
+      "instructors": [11, 12]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 7,
+    "fields": {
+      "title": "Philosophy",
+      "description": "Introduction to Philosophy",
+      "instructors": [13, 14]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 8,
+    "fields": {
+      "title": "Economics",
+      "description": "Principles of Economics",
+      "instructors": [15, 16]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 9,
+    "fields": {
+      "title": "Art",
+      "description": "History of Art and Design",
+      "instructors": [17, 18]
+    }
+  },
+  {
+    "model": "api.course",
+    "pk": 10,
+    "fields": {
+      "title": "Music",
+      "description": "Theory and Practice of Music",
+      "instructors": [19, 20]
+    }
+  }
+]
