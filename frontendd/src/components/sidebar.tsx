@@ -20,13 +20,13 @@ const Sidebar = () => {
   return (
     <aside className="bg-white absolute py-10 w-[70%] md:w-[23%] h-screen flex flex-col items-center shadow-lg">
       {/* Logo / Branding */}
-      <div className="mb-10 flex flex-col items-center">
+      <div className="mb-10 flex items-center">
         <img
-          src="/logo.png"
+          src="images/logo.png"
           alt="Learnthru Logo"
-          className="w-16 h-16 mb-2"
+          className="w-16 h-16"
         />
-        <h1 className="font-bold text-2xl">Learnthru</h1>
+        <h1 className="font-bold text-2xl text-gray-700">Learnthru</h1>
       </div>
 
       {/* Sidebar Menu */}
@@ -38,7 +38,7 @@ const Sidebar = () => {
             className={({ isActive }) =>
               `flex items-center gap-4 cursor-pointer text-lg px-4 py-2 rounded-md transition ${
                 isActive
-                  ? "bg-blue-100 text-blue-600 font-semibold"
+                  ? "bg-purple-100 text-purple-600 font-semibold"
                   : "text-gray-700 hover:bg-gray-100"
               }`
             }

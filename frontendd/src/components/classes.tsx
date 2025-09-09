@@ -45,20 +45,20 @@ const Classes: React.FC = () => {
           </NavLink>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="gap-4 md:grid grid-cols-4">
           {courses.map((cls) => (
             <div
               key={cls.id}
-              className="bg-purple-800 shadow-md rounded-lg p-4 flex flex-col gap-2 md:w-[12rem]"
+              className="bg-purple-800 shadow-md rounded-lg p-4 flex flex-col gap-2 mb-4"
             >
               <div className="flex items-center gap-2 text-lg font-semibold">
                 <FaBook className="text-white text-2xl" />
-                <p className="text-white text-[1.1rem]">{cls.course.title}</p>
+                <p className="text-white text-[1.1rem]">{cls.course_title}</p>
               </div>
               <div className="flex items-center gap-2 text-gray-700">
                 <FaUserTie className="mt-2 text-white text-2xl" />
                 <p className="text-white text-[1.1rem]">
-                  {cls.instructor.name}
+                  {cls.instructor_name}
                 </p>
               </div>
               <div className="flex items-center gap-2 text-gray-700">

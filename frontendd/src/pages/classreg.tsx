@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import { useUserProfile } from "../context/userprofile";
 import api from "../lib/api";
 
 type Instructor = {
@@ -37,6 +38,8 @@ const RegisterClass: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
+
+
 
   // Fetch courses + instructors
   useEffect(() => {
@@ -119,38 +122,37 @@ const RegisterClass: React.FC = () => {
     setForm({ ...form, courses: updatedCourses });
   };
 
-  const firstCourse = form.courses[0];
-
-  const payload = {
-    student_first_name: form.studentFirstName,
-    student_last_name: form.studentLastName,
-    email: form.email,
-    course: parseInt(firstCourse.course), // must be ID
-    instructor: parseInt(firstCourse.instructor), // must be ID
-    time: firstCourse.time + ":00", // make it HH:MM:SS
-  };
-
-  // Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
       try {
-        // send the form state to your Django backend
-        const res = await api.post("/api/registrations/", payload); // <-- pass payload
+        for (const c of form.courses) {
+          const payload = {
+            student_first_name: form.studentFirstName,
+            student_last_name: form.studentLastName,
+            email: form.email,
+            course: parseInt(c.course),
+            instructor: parseInt(c.instructor),
+            time: c.time + ":00",
+          };
 
-        if (res.status === 201) {
-          console.log("Course registered successfully:", res.data);
-        //   alert("Class registration successful!");
+          const res = await api.post("/api/registrations/", payload);
 
-          // Reset
-          setForm({
-            studentFirstName: "",
-            studentLastName: "",
-            email: "",
-            courses: [{ course: "", instructor: "", time: "" }],
-          });
-          setErrors({});
+          if (res.status === 201) {
+            console.log("Course registered successfully:", res.data);
+          }
         }
+
+        alert("Class registration successful!");
+
+        // Reset
+        setForm({
+          studentFirstName: "",
+          studentLastName: "",
+          email: "",
+          courses: [{ course: "", instructor: "", time: "" }],
+        });
+        setErrors({});
       } catch (err: any) {
         console.error(
           "Error submitting form:",
@@ -160,6 +162,48 @@ const RegisterClass: React.FC = () => {
       }
     }
   };
+
+  // const firstCourse = form.courses[0];
+
+  // const payload = {
+  //   student_first_name: form.studentFirstName,
+  //   student_last_name: form.studentLastName,
+  //   email: form.email,
+  //   course: parseInt(firstCourse.course), // must be ID
+  //   instructor: parseInt(firstCourse.instructor), // must be ID
+  //   time: firstCourse.time + ":00", // make it HH:MM:SS
+  // };
+
+  // Submit
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (validate()) {
+  // try {
+  //   // send the form state to your Django backend
+  //   const res = await api.post("/api/registrations/", payload); // <-- pass payload
+
+  //   if (res.status === 201) {
+  //     console.log("Course registered successfully:", res.data);
+  //   //   alert("Class registration successful!");
+
+  //     // Reset
+  //     setForm({
+  //       studentFirstName: "",
+  //       studentLastName: "",
+  //       email: "",
+  //       courses: [{ course: "", instructor: "", time: "" }],
+  //         });
+  //         setErrors({});
+  //       }
+  //     } catch (err: any) {
+  //       console.error(
+  //         "Error submitting form:",
+  //         err.response?.data || err.message
+  //       );
+  //       alert("Something went wrong. Please try again.");
+  //     }
+  //   }
+  // };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

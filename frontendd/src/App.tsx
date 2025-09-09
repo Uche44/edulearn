@@ -9,6 +9,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import RegisterClass from "./pages/classreg";
+import { UserProfileProvider } from "./context/userprofile";
 // import NotFound from "./components/NotFound";
 
 // Component to clear localStorage and redirect to /register
@@ -59,7 +60,11 @@ const router = createBrowserRouter([
 ]);
 
 const App: React.FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <UserProfileProvider>
+      <RouterProvider router={router} />
+    </UserProfileProvider>
+  );
 };
 
 export default App;

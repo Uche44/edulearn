@@ -60,7 +60,7 @@ const Dashboard = () => {
           {isSidebarOpen ? <BiX /> : <BiMenu />}
         </button>
 
-        <section className="p-6 border-2 min-h-screen w-full md:w-[95%] md:ml-[5%]">
+        <section className="p-6 min-h-screen w-full md:w-[95%] md:ml-[5%]">
           <Input />
           <DateComponent />
 
