@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
+import type { SetStateAction, Dispatch } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../lib/api";
+
 type CourseDetailsType = {
   instructorName: string;
   description: string;
@@ -8,13 +11,18 @@ type CourseDetailsType = {
 
 type WelcomeuserProps = {
   userName: string;
+  setIsProfileOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
+const Welcomeuser: React.FC<WelcomeuserProps> = ({
+  userName,
+  setIsProfileOpen,
+}) => {
   const [courseDetails, setCourseDetails] = useState<CourseDetailsType[]>([]);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [currentInstructorIndex, setCurrentInstructorIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourseAdvertDetails = async () => {
@@ -61,12 +69,24 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
     return () => clearInterval(interval);
   }, [courseDetails]);
 
+  const registerChosenCourse = async () => {
+    const chosenCourse = courseDetails[currentCourseIndex];
+    const chosenInstructor = chosenCourse.instructors[currentInstructorIndex];
+
+    navigate("/register-class", {
+      state: {
+        course: chosenCourse,
+        instructor: chosenInstructor,
+      },
+    });
+  };
+ 
+
   return (
     <div className="w-full h-fit bg-white rounded-[1rem] mt-14 flex relative">
-      <div className="h-fit overflow-hidden px-4 py-8">
+      <div className="h-fit overflow-hidden px-6 py-8">
         <h2 className="font-bold text-2xl mb-2">Welcome back, {userName}!</h2>
 
-        {/* ✅ Mapped course details */}
         <p
           className="text-gray-700 text-[1rem] mt-4 transition-opacity duration-500"
           style={{ opacity: fade ? 1 : 0 }}
@@ -86,6 +106,7 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
                     currentInstructorIndex
                   ].name
                 }
+                ,
               </span>
               <span className="block">
                 {
@@ -98,8 +119,11 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
           )}
         </p>
 
-        <button className="outline-none px-7 py-3 bg-purple-700 rounded-3xl mt-4 cursor-pointer hover:brightness-125 text-white">
-          Buy Now
+        <button
+          onClick={registerChosenCourse}
+          className="outline-none px-7 py-3 bg-purple-700 rounded-3xl mt-4 cursor-pointer hover:brightness-125 text-white"
+        >
+          Sign Up Now
         </button>
       </div>
 
@@ -108,6 +132,13 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
         alt=""
         className="hidden md:block absolute h-[14rem] -top-10 right-8"
       />
+
+      <button
+        onClick={() => setIsProfileOpen(true)}
+        className="absolute bottom-4 right-8 outline-none px-3 py-2 bg-green-500 rounded-4xl mt-4 cursor-pointer hover:brightness-125 text-white"
+      >
+        View Profile
+      </button>
     </div>
   );
 };
