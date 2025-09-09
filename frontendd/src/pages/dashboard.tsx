@@ -4,6 +4,7 @@ import { BiX, BiMenu } from "react-icons/bi";
 import Input from "../components/input";
 import DateComponent from "../components/date";
 import Classes from "../components/classes";
+import Welcomeuser from "../components/welcomeuser";
 import { fetchUserDetails } from "../utils/fetchUserDetails";
 
 const Dashboard = () => {
@@ -19,7 +20,6 @@ const Dashboard = () => {
 
         setUserName(name);
       } catch (error) {
-        // handle errors (e.g., redirect to login if unauthorized)
         console.log(error);
       }
     };
@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      {/* Sidebar - always visible on large screens */}
+      {/*  visible on large screens */}
       <div className="hidden md:block w-64 bg-white shadow-lg">
         <Sidebar />
       </div>
@@ -52,7 +52,6 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 relative">
-        {/* Toggle button (only visible on mobile) */}
         <button
           onClick={() => setIsSidebarOpen((prev) => !prev)}
           className="absolute top-7 right-4 z-50 p-2 text-3xl text-blue-900 rounded md:hidden"
@@ -65,16 +64,17 @@ const Dashboard = () => {
           <DateComponent />
 
           {/* welcome user */}
-          <div className="w-full h-fit bg-white rounded-[1rem] mt-14 flex relative">
+          <Welcomeuser userName={userName} />
+          {/* <div className="w-full h-fit bg-white rounded-[1rem] mt-14 flex relative">
             <div className="h-fit overflow-hidden px-4 py-8">
               <h2 className="font-bold text-2xl mb-2">
-                Welcome back, {userName}!
-              </h2>
+                Welcome back, {userName}! */}
+          {/* </h2>
               <p className="text-gray-600 text-[1.1rem]">
                 New French Classes are available. For B1 and B2 levels!
               </p>
 
-              <button className="outline-none px-7 py-3 bg-purple-700 rounded-3xl mt-4 hover:brightness-125 text-white">
+              <button className="outline-none px-7 py-3 bg-purple-700 rounded-3xl mt-4 cursor-pointer hover:brightness-125 text-white">
                 Buy Now
               </button>
             </div>
@@ -83,7 +83,7 @@ const Dashboard = () => {
               alt=""
               className="hidden md:block absolute h-[14rem] -top-10 right-8"
             />
-          </div>
+          </div> */}
           <Classes />
         </section>
       </div>
