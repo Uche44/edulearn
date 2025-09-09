@@ -5,12 +5,14 @@ import Input from "../components/input";
 import DateComponent from "../components/date";
 import Classes from "../components/classes";
 import Welcomeuser from "../components/welcomeuser";
+import UserProfile from "./profilepage";
 import { fetchUserDetails } from "../utils/fetchUserDetails";
 
-const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+const Dashboard: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
 
-  const [userName, setUserName] = useState<any>(null);
+  const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -50,11 +52,34 @@ const Dashboard = () => {
         </div>
       )}
 
+      {/* profile display and overlay for desktop */}
+      {isProfileOpen && (
+        <div className="fixed inset-0 z-60 hidden md:flex">
+          {/* Backdrop */}
+          <div
+            className="flex-1 bg-black/40"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+
+          {/* profile drawer */}
+          <div className="w-[25%] px-4 py-14 bg-white shadow-lg relative">
+            <button
+              onClick={() => setIsProfileOpen(false)}
+              className="absolute top-2 cursor-pointer right-2 z-50 p-2 text-3xl text-purple-900 rounded md:block hidden"
+            >
+              <BiX />
+            </button>
+
+            <UserProfile />
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <div className="flex-1 relative">
         <button
           onClick={() => setIsSidebarOpen((prev) => !prev)}
-          className="absolute top-7 right-4 z-50 p-2 text-3xl text-blue-900 rounded md:hidden"
+          className="absolute top-7 right-4 z-50 p-2 text-3xl text-purple-900 rounded md:hidden"
         >
           {isSidebarOpen ? <BiX /> : <BiMenu />}
         </button>
@@ -64,26 +89,11 @@ const Dashboard = () => {
           <DateComponent />
 
           {/* welcome user */}
-          <Welcomeuser userName={userName} />
-          {/* <div className="w-full h-fit bg-white rounded-[1rem] mt-14 flex relative">
-            <div className="h-fit overflow-hidden px-4 py-8">
-              <h2 className="font-bold text-2xl mb-2">
-                Welcome back, {userName}! */}
-          {/* </h2>
-              <p className="text-gray-600 text-[1.1rem]">
-                New French Classes are available. For B1 and B2 levels!
-              </p>
+          <Welcomeuser
+            userName={userName}
+            setIsProfileOpen={setIsProfileOpen}
+          />
 
-              <button className="outline-none px-7 py-3 bg-purple-700 rounded-3xl mt-4 cursor-pointer hover:brightness-125 text-white">
-                Buy Now
-              </button>
-            </div>
-            <img
-              src="images/books.png"
-              alt=""
-              className="hidden md:block absolute h-[14rem] -top-10 right-8"
-            />
-          </div> */}
           <Classes />
         </section>
       </div>

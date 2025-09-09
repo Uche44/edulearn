@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import { useUserProfile } from "../context/userprofile";
+import { useLocation } from "react-router-dom";
 import api from "../lib/api";
 
 type Instructor = {
@@ -38,18 +39,36 @@ const RegisterClass: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
+  const [prefilled, setPrefilled] = useState(false);
+  // const { profile, setProfile } = useUserProfile();
 
+  const location = useLocation();
+  const { course, instructor } = location.state || {};
 
+  useEffect(() => {
+    if (course && instructor) {
+      setForm((prev) => ({
+        ...prev,
+        courses: [
+          {
+            course: String(course.id),
+            instructor: String(instructor.id),
+            time: "",
+          },
+        ],
+      }));
+      setPrefilled(true);
+    }
+  }, [course, instructor]);
 
   // Fetch courses + instructors
   useEffect(() => {
     api
-      .get<Course[]>("http://localhost:8000/api/courses/")
+      .get<Course[]>("/api/courses/")
       .then((res) => setAvailableCourses(res.data))
       .catch((err) => console.error("Error fetching courses:", err));
   }, []);
 
-  // Validation
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -81,7 +100,6 @@ const RegisterClass: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle student input change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: keyof FormValues
@@ -89,7 +107,6 @@ const RegisterClass: React.FC = () => {
     setForm({ ...form, [field]: e.target.value });
   };
 
-  // Handle course/instructor/time change
   const handleCourseChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>,
     index: number,
@@ -106,7 +123,6 @@ const RegisterClass: React.FC = () => {
     setForm({ ...form, courses: updatedCourses });
   };
 
-  // Add course
   const addCourse = () => {
     if (form.courses.length < 5) {
       setForm({
@@ -116,7 +132,6 @@ const RegisterClass: React.FC = () => {
     }
   };
 
-  // Remove course
   const removeCourse = (index: number) => {
     const updatedCourses = form.courses.filter((_, i) => i !== index);
     setForm({ ...form, courses: updatedCourses });
@@ -145,7 +160,6 @@ const RegisterClass: React.FC = () => {
 
         alert("Class registration successful!");
 
-        // Reset
         setForm({
           studentFirstName: "",
           studentLastName: "",
@@ -162,48 +176,6 @@ const RegisterClass: React.FC = () => {
       }
     }
   };
-
-  // const firstCourse = form.courses[0];
-
-  // const payload = {
-  //   student_first_name: form.studentFirstName,
-  //   student_last_name: form.studentLastName,
-  //   email: form.email,
-  //   course: parseInt(firstCourse.course), // must be ID
-  //   instructor: parseInt(firstCourse.instructor), // must be ID
-  //   time: firstCourse.time + ":00", // make it HH:MM:SS
-  // };
-
-  // Submit
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (validate()) {
-  // try {
-  //   // send the form state to your Django backend
-  //   const res = await api.post("/api/registrations/", payload); // <-- pass payload
-
-  //   if (res.status === 201) {
-  //     console.log("Course registered successfully:", res.data);
-  //   //   alert("Class registration successful!");
-
-  //     // Reset
-  //     setForm({
-  //       studentFirstName: "",
-  //       studentLastName: "",
-  //       email: "",
-  //       courses: [{ course: "", instructor: "", time: "" }],
-  //         });
-  //         setErrors({});
-  //       }
-  //     } catch (err: any) {
-  //       console.error(
-  //         "Error submitting form:",
-  //         err.response?.data || err.message
-  //       );
-  //       alert("Something went wrong. Please try again.");
-  //     }
-  //   }
-  // };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -253,10 +225,12 @@ const RegisterClass: React.FC = () => {
           {/* Courses Section */}
           <div>
             <h3 className="text-lg font-semibold mb-2">Courses</h3>
+
             {form.courses.map((course, index) => {
               const selectedCourse = availableCourses.find(
                 (c) => String(c.id) === course.course
               );
+              const isPrefilledRow = prefilled && index === 0;
               return (
                 <div
                   key={index}
@@ -269,6 +243,7 @@ const RegisterClass: React.FC = () => {
                       value={course.course}
                       onChange={(e) => handleCourseChange(e, index, "course")}
                       className="w-full border rounded p-2"
+                      disabled={isPrefilledRow}
                     >
                       <option value="">-- Select a Course --</option>
                       {availableCourses.map((c) => (
@@ -296,7 +271,7 @@ const RegisterClass: React.FC = () => {
                         handleCourseChange(e, index, "instructor")
                       }
                       className="w-full border rounded p-2"
-                      disabled={!selectedCourse}
+                      disabled={isPrefilledRow || !selectedCourse}
                     >
                       <option value="">-- Select an Instructor --</option>
                       {selectedCourse?.instructors.map((instr) => (
@@ -313,7 +288,6 @@ const RegisterClass: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Time Input */}
                   <div>
                     <label className="block text-sm font-medium">Time</label>
                     <input
@@ -327,7 +301,7 @@ const RegisterClass: React.FC = () => {
                     </p>
                   </div>
 
-                  {form.courses.length > 1 && (
+                  {form.courses.length > 1 && !isPrefilledRow && (
                     <button
                       type="button"
                       onClick={() => removeCourse(index)}
@@ -345,6 +319,7 @@ const RegisterClass: React.FC = () => {
                 type="button"
                 onClick={addCourse}
                 className="px-4 py-2 bg-purple-600 text-white rounded-md"
+                disabled={prefilled}
               >
                 + Add Course
               </button>

@@ -22,11 +22,7 @@ const UserProfileContext = createContext<UserProfileContextType | undefined>(
 export const UserProfileProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [profile, setProfile] = useState<Profile>({
-    firstname: "",
-    lastname: "",
-    email: "",
-  });
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   return (
     <UserProfileContext.Provider value={{ profile, setProfile }}>
