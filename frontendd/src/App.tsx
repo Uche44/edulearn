@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -9,11 +9,10 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import RegisterClass from "./pages/classreg";
+import Classroom from "./pages/classroom";
+import Dashboardindex from "./pages/dashboardindex";
 import { UserProfileProvider } from "./context/userprofile";
 // import NotFound from "./components/NotFound";
-
-// Component to clear localStorage and redirect to /register
-import { useEffect } from "react";
 
 const RegisterAndLogOut: React.FC = () => {
   const navigate = useNavigate();
@@ -32,6 +31,20 @@ const router = createBrowserRouter([
         <Dashboard />
       </ProtectedRoutes>
     ),
+    children: [
+      {
+        index: true,
+        element: <Dashboardindex />,
+      },
+      {
+        path: "register-class",
+        element: <RegisterClass />,
+      },
+      {
+        path: "classroom",
+        element: <Classroom />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -44,14 +57,6 @@ const router = createBrowserRouter([
   {
     path: "/register-logout",
     element: <RegisterAndLogOut />,
-  },
-  {
-    path: "/register-class",
-    element: (
-      <ProtectedRoutes>
-        <RegisterClass />
-      </ProtectedRoutes>
-    ),
   },
   // {
   //   path: "*",
