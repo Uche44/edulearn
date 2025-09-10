@@ -6,28 +6,29 @@ import DateComponent from "../components/date";
 import Classes from "../components/classes";
 import Welcomeuser from "../components/welcomeuser";
 import UserProfile from "./profilepage";
+import { Outlet } from "react-router-dom";
 import { fetchUserDetails } from "../utils/fetchUserDetails";
 
 const Dashboard: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
 
-  const [userName, setUserName] = useState<string | null>(null);
+  // const [userName, setUserName] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const data = await fetchUserDetails();
-        const name = data.username;
+  // useEffect(() => {
+  //   const loadUser = async () => {
+  //     try {
+  //       const data = await fetchUserDetails();
+  //       const name = data.username;
 
-        setUserName(name);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  //       setUserName(name);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    loadUser();
-  }, []);
+  //   loadUser();
+  // }, []);
 
   return (
     <div className="flex">
@@ -84,18 +85,19 @@ const Dashboard: React.FC = () => {
           {isSidebarOpen ? <BiX /> : <BiMenu />}
         </button>
 
-        <section className="p-6 min-h-screen w-full md:w-[95%] md:ml-[5%]">
+        {/* <section className="p-6 min-h-screen w-full md:w-[95%] md:ml-[5%]">
           <Input />
           <DateComponent />
 
-          {/* welcome user */}
+          
           <Welcomeuser
             userName={userName}
             setIsProfileOpen={setIsProfileOpen}
           />
 
           <Classes />
-        </section>
+        </section> */}
+        <Outlet />
       </div>
     </div>
   );
