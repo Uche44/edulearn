@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   FaHome,
   FaChalkboardTeacher,
@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa";
 
 const Sidebar = () => {
+  const location = useLocation();
+
   const sidebarItems = [
     { icon: <FaHome />, text: "Dashboard", path: "/" },
     { icon: <FaChalkboardTeacher />, text: "Classroom", path: "/classroom" },
@@ -18,7 +20,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="bg-white absolute py-10 w-[70%] md:w-[23%] h-screen flex flex-col items-center shadow-lg">
+    <aside className="bg-white z-100 absolute py-10 w-[70%] md:w-[23%] h-screen flex flex-col items-center shadow-lg">
       {/* Logo / Branding */}
       <div className="mb-10 flex items-center">
         <img
@@ -31,22 +33,30 @@ const Sidebar = () => {
 
       {/* Sidebar Menu */}
       <nav className="flex flex-col gap-2 w-full px-6">
-        {sidebarItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.path}
-            className={({ isActive }) =>
-              `flex items-center gap-4 cursor-pointer text-lg px-4 py-2 rounded-md transition ${
-                isActive
-                  ? "bg-purple-200 text-purple-600 font-semibold"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`
-            }
-          >
-            <span className="text-xl">{item.icon}</span>
-            <span>{item.text}</span>
-          </NavLink>
-        ))}
+        {sidebarItems.map((item, index) => {
+          // Custom "active" logic for Classroom
+          const isClassActive =
+            item.path === "/classroom" &&
+            (location.pathname.startsWith("/classroom") ||
+              location.pathname.startsWith("/register-class"));
+
+          return (
+            <NavLink
+              key={index}
+              to={item.path}
+              className={({ isActive }) =>
+                `flex items-center gap-4 cursor-pointer text-lg px-4 py-2 rounded-md transition ${
+                  isActive || isClassActive
+                    ? "bg-purple-200 text-purple-600 font-semibold"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`
+              }
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span>{item.text}</span>
+            </NavLink>
+          );
+        })}
       </nav>
     </aside>
   );

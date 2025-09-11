@@ -1,34 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Sidebar from "../components/sidebar";
 import { BiX, BiMenu } from "react-icons/bi";
-import Input from "../components/input";
-import DateComponent from "../components/date";
-import Classes from "../components/classes";
-import Welcomeuser from "../components/welcomeuser";
 import UserProfile from "./profilepage";
 import { Outlet } from "react-router-dom";
-import { fetchUserDetails } from "../utils/fetchUserDetails";
+
 
 const Dashboard: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
-
-  // const [userName, setUserName] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const loadUser = async () => {
-  //     try {
-  //       const data = await fetchUserDetails();
-  //       const name = data.username;
-
-  //       setUserName(name);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   loadUser();
-  // }, []);
 
   return (
     <div className="flex">
@@ -55,18 +34,18 @@ const Dashboard: React.FC = () => {
 
       {/* profile display and overlay for desktop */}
       {isProfileOpen && (
-        <div className="fixed inset-0 z-60 hidden md:flex">
+        <div className="fixed inset-0 z-110 hidden md:flex">
           {/* Backdrop */}
           <div
-            className="flex-1 bg-black/40"
-            onClick={() => setIsSidebarOpen(false)}
+            className="flex-1 bg-black/50"
+            
           />
 
           {/* profile drawer */}
           <div className="w-[25%] px-4 py-14 bg-white shadow-lg relative">
             <button
               onClick={() => setIsProfileOpen(false)}
-              className="absolute top-2 cursor-pointer right-2 z-50 p-2 text-3xl text-purple-900 rounded md:block hidden"
+              className="absolute top-4 cursor-pointer right-2 z-50 p-2 text-3xl text-purple-900 rounded md:block hidden"
             >
               <BiX />
             </button>
@@ -85,18 +64,14 @@ const Dashboard: React.FC = () => {
           {isSidebarOpen ? <BiX /> : <BiMenu />}
         </button>
 
-        {/* <section className="p-6 min-h-screen w-full md:w-[95%] md:ml-[5%]">
-          <Input />
-          <DateComponent />
+        {/* open profile button */}
+        <button
+          onClick={() => setIsProfileOpen(true)}
+          className="absolute top-[19rem] z-10 right-14 outline-none px-3 py-2 bg-green-500 rounded-4xl mt-4 cursor-pointer hover:brightness-125 text-white"
+        >
+          View Profile
+        </button>
 
-          
-          <Welcomeuser
-            userName={userName}
-            setIsProfileOpen={setIsProfileOpen}
-          />
-
-          <Classes />
-        </section> */}
         <Outlet />
       </div>
     </div>

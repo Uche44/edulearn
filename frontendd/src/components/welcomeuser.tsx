@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import type { SetStateAction, Dispatch } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../lib/api";
 
@@ -11,12 +10,12 @@ type CourseDetailsType = {
 
 type WelcomeuserProps = {
   userName: string;
-  setIsProfileOpen: Dispatch<SetStateAction<boolean>>;
+ 
 };
 
 const Welcomeuser: React.FC<WelcomeuserProps> = ({
   userName,
-  setIsProfileOpen,
+  // setIsProfileOpen,
 }) => {
   const [courseDetails, setCourseDetails] = useState<CourseDetailsType[]>([]);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
@@ -80,7 +79,6 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
       },
     });
   };
- 
 
   return (
     <div className="w-full h-fit bg-white rounded-[1rem] mt-14 flex relative">
@@ -132,13 +130,6 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
         alt=""
         className="hidden md:block absolute h-[14rem] -top-10 right-8"
       />
-
-      <button
-        onClick={() => setIsProfileOpen(true)}
-        className="absolute bottom-4 right-8 outline-none px-3 py-2 bg-green-500 rounded-4xl mt-4 cursor-pointer hover:brightness-125 text-white"
-      >
-        View Profile
-      </button>
     </div>
   );
 };
