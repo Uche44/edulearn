@@ -178,7 +178,7 @@ const RegisterClass: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="w-full flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-8">
         <h2 className="text-2xl font-semibold mb-6">Register for Classes</h2>
 

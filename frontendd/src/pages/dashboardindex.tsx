@@ -25,10 +25,10 @@ const Dashboardindex: React.FC = () => {
       <Input />
       {/* <DateComponent /> */}
 
-      {/* welcome user */}
+     
       <Welcomeuser
         userName={userName}
-        // setIsProfileOpen={setIsProfileOpen}
+        
       />
 
       <Classes />

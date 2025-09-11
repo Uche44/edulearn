@@ -1,24 +1,24 @@
 import React, { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
-// Define profile type
+
 type Profile = {
   firstname: string;
   lastname: string;
   email: string;
 };
 
-// Define context shape
+
 type UserProfileContextType = {
   profile: Profile;
   setProfile: React.Dispatch<React.SetStateAction<Profile>>;
 };
 
-// Create context
+
 const UserProfileContext = createContext<UserProfileContextType | undefined>(
   undefined
 );
 
-// Provider component
+
 export const UserProfileProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -31,7 +31,7 @@ export const UserProfileProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-// Custom hook for easy access
+
 export const useUserProfile = () => {
   const context = useContext(UserProfileContext);
   if (!context) {

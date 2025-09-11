@@ -46,12 +46,12 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-      {/* Floating Circles Background */}
+    
       <div className="absolute hidden md:block md:w-[500px] md:h-[500px] bg-violet-400/30 rounded-full animate-float top-10 left-10"></div>
       <div className="absolute hidden md:block md:w-[300px] md:h-[300px] bg-violet-500/20 rounded-full animate-float top-40 right-20"></div>
       <div className="absolute hidden md:block md:w-[200px] md:h-[200px] bg-violet-300/30 rounded-full animate-float bottom-20 left-40"></div>
 
-      {/* Glassmorphism Form */}
+      
       <form
         onSubmit={handleSubmit}
         className="relative z-10 bg-violet-glass p-8 rounded-2xl shadow-lg backdrop-blur-lg w-[90%] max-w-md"
