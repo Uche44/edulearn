@@ -2,32 +2,9 @@ import React, { useState, useEffect } from "react";
 // import { useUserProfile } from "../context/userprofile";
 import { useLocation } from "react-router-dom";
 import api from "../lib/api";
+import type { Instructor, Course, CourseForm, FormValues } from "../types/coursereg";
 
-type Instructor = {
-  id: number;
-  name: string;
-  bio: string;
-};
 
-type Course = {
-  id: number;
-  title: string;
-  description: string;
-  instructors: Instructor[];
-};
-
-type CourseForm = {
-  course: string; // store course id as string
-  instructor: string; // store instructor id as string
-  time: string;
-};
-
-type FormValues = {
-  studentFirstName: string;
-  studentLastName: string;
-  email: string;
-  courses: CourseForm[];
-};
 
 const RegisterClass: React.FC = () => {
   const [form, setForm] = useState<FormValues>({
