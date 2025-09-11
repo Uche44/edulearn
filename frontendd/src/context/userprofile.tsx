@@ -1,17 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
+import type { UserProfileContextType, Profile } from "../types/userprofilecontext";
 
-type Profile = {
-  firstname: string;
-  lastname: string;
-  email: string;
-};
-
-
-type UserProfileContextType = {
-  profile: Profile;
-  setProfile: React.Dispatch<React.SetStateAction<Profile>>;
-};
 
 
 const UserProfileContext = createContext<UserProfileContextType | undefined>(
