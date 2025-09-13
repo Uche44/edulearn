@@ -14,7 +14,7 @@ type Course = {
 type CourseForm = {
   course: string; // store course id as string
   instructor: string; // store instructor id as string
-  time: string;
+  // time: string;
 };
 
 type FormValues = {

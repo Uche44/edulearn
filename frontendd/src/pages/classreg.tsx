@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 // import { useUserProfile } from "../context/userprofile";
 import { useLocation } from "react-router-dom";
 import api from "../lib/api";
-import type { Instructor, Course, CourseForm, FormValues } from "../types/coursereg";
-
-
+import type {
+  Instructor,
+  Course,
+  CourseForm,
+  FormValues,
+} from "../types/coursereg";
 
 const RegisterClass: React.FC = () => {
   const [form, setForm] = useState<FormValues>({
@@ -30,7 +33,7 @@ const RegisterClass: React.FC = () => {
           {
             course: String(course.id),
             instructor: String(instructor.id),
-            time: "",
+            // time: "",
           },
         ],
       }));
@@ -40,10 +43,29 @@ const RegisterClass: React.FC = () => {
 
   // Fetch courses + instructors
   useEffect(() => {
-    api
-      .get<Course[]>("/api/courses/")
-      .then((res) => setAvailableCourses(res.data))
-      .catch((err) => console.error("Error fetching courses:", err));
+    const controller = new AbortController();
+
+    const fetchCourses = async () => {
+      try {
+        const res = await api.get<Course[]>("/api/courses/", {
+          signal: controller.signal,
+        });
+        setAvailableCourses(res.data);
+        console.log(res.data);
+      } catch (err) {
+        if (err.name === "CanceledError") {
+          console.log("Request canceled:", err.message);
+        } else {
+          console.error("Error fetching courses:", err);
+        }
+      }
+    };
+
+    fetchCourses();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const validate = (): boolean => {
@@ -70,7 +92,7 @@ const RegisterClass: React.FC = () => {
         newErrors[`courses.${i}.course`] = "Course required";
       if (!c.instructor.trim())
         newErrors[`courses.${i}.instructor`] = "Instructor required";
-      if (!c.time.trim()) newErrors[`courses.${i}.time`] = "Time required";
+      // if (!c.time.trim()) newErrors[`courses.${i}.time`] = "Time required";
     });
 
     setErrors(newErrors);
@@ -104,7 +126,7 @@ const RegisterClass: React.FC = () => {
     if (form.courses.length < 5) {
       setForm({
         ...form,
-        courses: [...form.courses, { course: "", instructor: "", time: "" }],
+        courses: [...form.courses, { course: "", instructor: "" }],
       });
     }
   };
@@ -125,7 +147,7 @@ const RegisterClass: React.FC = () => {
             email: form.email,
             course: parseInt(c.course),
             instructor: parseInt(c.instructor),
-            time: c.time + ":00",
+            // time: c.time + ":00",
           };
 
           const res = await api.post("/api/registrations/", payload);
@@ -141,7 +163,7 @@ const RegisterClass: React.FC = () => {
           studentFirstName: "",
           studentLastName: "",
           email: "",
-          courses: [{ course: "", instructor: "", time: "" }],
+          courses: [{ course: "", instructor: "" }],
         });
         setErrors({});
       } catch (err: any) {
@@ -265,19 +287,6 @@ const RegisterClass: React.FC = () => {
                     </p>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium">Time</label>
-                    <input
-                      type="time"
-                      value={course.time}
-                      onChange={(e) => handleCourseChange(e, index, "time")}
-                      className="w-full border rounded p-2"
-                    />
-                    <p className="text-red-500 text-sm">
-                      {errors[`courses.${index}.time`]}
-                    </p>
-                  </div>
-
                   {form.courses.length > 1 && !isPrefilledRow && (
                     <button
                       type="button"
@@ -319,7 +328,7 @@ const RegisterClass: React.FC = () => {
                   studentFirstName: "",
                   studentLastName: "",
                   email: "",
-                  courses: [{ course: "", instructor: "", time: "" }],
+                  courses: [{ course: "", instructor: "" }],
                 })
               }
               className="px-6 py-2 bg-gray-300 text-black rounded-md"

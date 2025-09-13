@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Course, Instructor, Registration
+from .models import Course, Instructor, Registration, Lesson
 
 # user serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -21,13 +21,34 @@ class InstructorSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'bio']
 
 
+# lesson serializer
+class LessonSerializer(serializers.ModelSerializer):
+    day_of_week_display = serializers.CharField(source="get_day_of_week_display", read_only=True)
+
+    class Meta:
+        model = Lesson
+        fields = [
+            "id",
+            "day_of_week",
+            "day_of_week_display",
+            "time",
+            "start_date",
+            "end_date",
+            "specific_date",
+        ]
+
+
+
 # course serializer
 class CourseSerializer(serializers.ModelSerializer):
     instructors = InstructorSerializer(many=True, read_only=True)
+    lessons = LessonSerializer(many=True, read_only=True)
+
+
 
     class Meta:
         model = Course
-        fields = ["id", "title", "description", "instructors"]
+        fields = ["id", "title", "description", "instructors", "lessons"]
 
 
 # registration serializer
