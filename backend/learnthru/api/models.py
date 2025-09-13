@@ -25,3 +25,36 @@ class Registration(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     time = models.TimeField()
+
+
+
+class Lesson(models.Model):
+    DAYS_OF_WEEK = [
+        ("Mon", "Monday"),
+        ("Tue", "Tuesday"),
+        ("Wed", "Wednesday"),
+        ("Thu", "Thursday"),
+        ("Fri", "Friday"),
+        ("Sat", "Saturday"),
+        ("Sun", "Sunday"),
+    ]
+
+    course = models.ForeignKey(
+        "Course",
+        on_delete=models.CASCADE,
+        related_name="lessons"
+    )
+
+    
+    day_of_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK)
+    time = models.TimeField()
+
+    start_date = models.DateField()  
+    end_date = models.DateField()    
+
+    specific_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        if self.specific_date:
+            return f"{self.course.title} - {self.specific_date} at {self.time}"
+        return f"{self.course.title} - {self.get_day_of_week_display()} {self.time} ({self.start_date} → {self.end_date})"

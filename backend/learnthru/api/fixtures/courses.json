@@ -222,5 +222,246 @@
       "description": "Theory and Practice of Music",
       "instructors": [19, 20]
     }
+  },
+
+  {
+    "model": "api.lesson",
+    "pk": 1,
+    "fields": {
+      "course": 1,
+      "day_of_week": "Mon",
+      "time": "09:00:00",
+      "start_date": "2025-09-01",
+      "end_date": "2025-09-30",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 2,
+    "fields": {
+      "course": 1,
+      "day_of_week": "Wed",
+      "time": "11:00:00",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-31",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 3,
+    "fields": {
+      "course": 2,
+      "day_of_week": "Tue",
+      "time": "10:00:00",
+      "start_date": "2025-09-15",
+      "end_date": "2025-10-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 4,
+    "fields": {
+      "course": 2,
+      "day_of_week": "Thu",
+      "time": "14:00:00",
+      "start_date": "2025-10-16",
+      "end_date": "2025-11-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 5,
+    "fields": {
+      "course": 3,
+      "day_of_week": "Mon",
+      "time": "13:00:00",
+      "start_date": "2025-09-01",
+      "end_date": "2025-09-30",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 6,
+    "fields": {
+      "course": 3,
+      "day_of_week": "Thu",
+      "time": "09:00:00",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-31",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 7,
+    "fields": {
+      "course": 4,
+      "day_of_week": "Wed",
+      "time": "13:00:00",
+      "start_date": "2025-09-15",
+      "end_date": "2025-10-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 8,
+    "fields": {
+      "course": 4,
+      "day_of_week": "Fri",
+      "time": "10:00:00",
+      "start_date": "2025-10-16",
+      "end_date": "2025-11-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 9,
+    "fields": {
+      "course": 5,
+      "day_of_week": "Tue",
+      "time": "15:00:00",
+      "start_date": "2025-09-01",
+      "end_date": "2025-09-30",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 10,
+    "fields": {
+      "course": 5,
+      "day_of_week": "Thu",
+      "time": "11:00:00",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-31",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 11,
+    "fields": {
+      "course": 6,
+      "day_of_week": "Mon",
+      "time": "15:00:00",
+      "start_date": "2025-09-15",
+      "end_date": "2025-10-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 12,
+    "fields": {
+      "course": 6,
+      "day_of_week": "Wed",
+      "time": "09:00:00",
+      "start_date": "2025-10-16",
+      "end_date": "2025-11-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 13,
+    "fields": {
+      "course": 7,
+      "day_of_week": "Tue",
+      "time": "13:00:00",
+      "start_date": "2025-09-01",
+      "end_date": "2025-09-30",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 14,
+    "fields": {
+      "course": 7,
+      "day_of_week": "Fri",
+      "time": "11:00:00",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-31",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 15,
+    "fields": {
+      "course": 8,
+      "day_of_week": "Mon",
+      "time": "11:00:00",
+      "start_date": "2025-09-15",
+      "end_date": "2025-10-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 16,
+    "fields": {
+      "course": 8,
+      "day_of_week": "Thu",
+      "time": "15:00:00",
+      "start_date": "2025-10-16",
+      "end_date": "2025-11-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 17,
+    "fields": {
+      "course": 9,
+      "day_of_week": "Wed",
+      "time": "15:00:00",
+      "start_date": "2025-09-01",
+      "end_date": "2025-09-30",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 18,
+    "fields": {
+      "course": 9,
+      "day_of_week": "Fri",
+      "time": "13:00:00",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-31",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 19,
+    "fields": {
+      "course": 10,
+      "day_of_week": "Tue",
+      "time": "09:00:00",
+      "start_date": "2025-09-15",
+      "end_date": "2025-10-15",
+      "specific_date": null
+    }
+  },
+  {
+    "model": "api.lesson",
+    "pk": 20,
+    "fields": {
+      "course": 10,
+      "day_of_week": "Fri",
+      "time": "15:00:00",
+      "start_date": "2025-10-16",
+      "end_date": "2025-11-15",
+      "specific_date": null
+    }
   }
 ]
