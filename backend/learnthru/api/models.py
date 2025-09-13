@@ -22,9 +22,17 @@ class Registration(models.Model):
     student_first_name = models.CharField(max_length=100)
     student_last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
-    time = models.TimeField()
+
+    # A registration links directly to a lesson (which already has course + time info)
+    lesson = models.ForeignKey(
+        "Lesson",
+        on_delete=models.CASCADE,
+        related_name="registrations"
+    )
+
+    def __str__(self):
+        return f"{self.student_first_name} {self.student_last_name} - {self.lesson}"
+
 
 
 
@@ -55,6 +63,8 @@ class Lesson(models.Model):
     specific_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
+        time_str = self.time.strftime("%I:%M %p")  # e.g., "02:00 PM"
         if self.specific_date:
-            return f"{self.course.title} - {self.specific_date} at {self.time}"
-        return f"{self.course.title} - {self.get_day_of_week_display()} {self.time} ({self.start_date} → {self.end_date})"
+            return f"{self.course.title} - {self.specific_date.strftime('%b %d, %Y')} at {time_str}"
+        return f"{self.course.title} - {self.get_day_of_week_display()} at {time_str} ({self.start_date.strftime('%b %d, %Y')} → {self.end_date.strftime('%b %d, %Y')})"
+
