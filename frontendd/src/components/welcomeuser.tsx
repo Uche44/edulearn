@@ -10,7 +10,6 @@ type CourseDetailsType = {
 
 type WelcomeuserProps = {
   userName: string;
- 
 };
 
 const Welcomeuser: React.FC<WelcomeuserProps> = ({
@@ -90,7 +89,7 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
           style={{ opacity: fade ? 1 : 0 }}
         >
           {courseDetails.length > 0 && (
-            <p
+            <span
               className="text-gray-700 text-[1rem] mt-4 transition-opacity duration-500"
               style={{ opacity: fade ? 1 : 0 }}
             >
@@ -113,7 +112,7 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
                   ].bio
                 }
               </span>
-            </p>
+            </span>
           )}
         </p>
 
