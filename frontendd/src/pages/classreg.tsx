@@ -14,7 +14,7 @@ const RegisterClass: React.FC = () => {
     studentFirstName: "",
     studentLastName: "",
     email: "",
-    courses: [{ course: "", instructor: "", time: "" }],
+    courses: [{ course: "", instructor: "" }],
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});

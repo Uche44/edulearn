@@ -9,7 +9,7 @@ type Registration = {
   id: number;
   course: { id: number; title: string };
   instructor: { id: number; name: string };
-  time: string;
+  // time: string;
 };
 
 const Classes: React.FC = () => {
@@ -46,7 +46,9 @@ const Classes: React.FC = () => {
         </div>
       ) : (
         <div className="gap-4 md:grid grid-cols-4 pt-11 relative">
-          <h3 className="absolute font-semibold text-[1.3rem] text-gray-500 tracking-wider">Your Classes</h3>
+          <h3 className="absolute font-semibold text-[1.3rem] text-gray-500 tracking-wider">
+            Your Classes
+          </h3>
           {courses.map((cls, index) => (
             <div
               key={cls.id}
@@ -99,7 +101,7 @@ const Classes: React.FC = () => {
                 <div className="flex items-center gap-3 text-slate-300">
                   <FaClock className="text-slate-400 text-xl" />
                   <p className="text-slate-200 text-base">
-                    {cls.time.slice(0, 5)}
+                    {/* {cls.time.slice(0, 5)} */}
                   </p>
                 </div>
               </div>

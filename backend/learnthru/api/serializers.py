@@ -53,17 +53,16 @@ class CourseSerializer(serializers.ModelSerializer):
 
 # registration serializer
 class RegistrationSerializer(serializers.ModelSerializer):
-    # Accept IDs when creating/updating
+    # Write-only: accept course ID
     course = serializers.PrimaryKeyRelatedField(
         queryset=Course.objects.all(), write_only=True
     )
-    instructor = serializers.PrimaryKeyRelatedField(
-        queryset=Instructor.objects.all(), write_only=True
-    )
 
-    # Expose human-readable fields for responses
+    # Read-only: expose details through lesson
     course_title = serializers.CharField(source="course.title", read_only=True)
-    instructor_name = serializers.CharField(source="instructor.name", read_only=True)
+    instructor_name = serializers.CharField(source="course.instructor.name", read_only=True)
+    start_time = serializers.DateTimeField(source="lesson.start_time", read_only=True)
+    end_time = serializers.DateTimeField(source="lesson.end_time", read_only=True)
 
     class Meta:
         model = Registration
@@ -72,9 +71,22 @@ class RegistrationSerializer(serializers.ModelSerializer):
             "student_first_name",
             "student_last_name",
             "email",
-            "course",           # write-only (ID)
-            "course_title",     # read-only (title)
-            "instructor",       # write-only (ID)
-            "instructor_name",  # read-only (name)
-            "time",
+            "course",           # write-only
+            "course_title",     # read-only
+            "instructor_name",  # read-only
+            "start_time",       # read-only
+            "end_time",         # read-only
         ]
+
+    def create(self, validated_data):
+        course = validated_data.pop("course")
+
+        # Find a lesson for this course (adjust logic if multiple lessons exist)
+        try:
+            lesson = Lesson.objects.filter(course=course).first()
+            if not lesson:
+                raise serializers.ValidationError("No lesson available for this course.")
+        except Lesson.DoesNotExist:
+            raise serializers.ValidationError("Invalid course.")
+
+        return Registration.objects.create(lesson=lesson, **validated_data)
