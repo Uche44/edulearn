@@ -63,15 +63,17 @@ class RegistrationSerializer(serializers.ModelSerializer):
             "student_first_name",
             "student_last_name",
             "email",
-            "lesson",  # Accept lesson ID in the request
+            "lesson",  
         ]
 
     def to_representation(self, instance):
-        """
-        Customize the response to include full lesson details.
-        """
+        
         representation = super().to_representation(instance)
         lesson = instance.lesson
+        # three lines added
+        course = lesson.course
+        # Serialize instructors using InstructorSerializer
+        instructors = InstructorSerializer(course.instructors.all(), many=True).data
         representation["lesson"] = {
             "id": lesson.id,
             "day_of_week": lesson.day_of_week,
@@ -80,6 +82,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 "id": lesson.course.id,
                 "title": lesson.course.title,
                 "description": lesson.course.description,
+                 "instructors": instructors,
             },
         }
         return representation

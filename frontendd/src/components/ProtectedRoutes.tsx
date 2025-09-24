@@ -3,10 +3,13 @@ import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "../lib/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../lib/constants";
+import { useUserProfile } from "../context/userprofile";
 
 const ProtectedRoutes: React.FC<React.PropsWithChildren<object>> = ({
   children,
 }) => {
+  const { setProfile } = useUserProfile();
+
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -21,8 +24,15 @@ const ProtectedRoutes: React.FC<React.PropsWithChildren<object>> = ({
       });
 
       if (res.status === 200) {
-        console.log(res.data.access);
-        localStorage.setItem(ACCESS_TOKEN, res.data.access);
+        const newAccessToken = res.data.access;
+        localStorage.setItem(ACCESS_TOKEN, newAccessToken);
+
+        // decode token to get user_id
+        const decoded: any = jwtDecode(newAccessToken);
+        if (decoded?.user_id) {
+          setProfile(decoded.user_id); // 👈 store user id in context
+        }
+
         setIsAuthorized(true);
       } else {
         setIsAuthorized(false);
@@ -39,8 +49,10 @@ const ProtectedRoutes: React.FC<React.PropsWithChildren<object>> = ({
       setIsAuthorized(false);
       return;
     }
-    const decoded = jwtDecode(token);
-    console.log(decoded);
+
+    const decoded: any = jwtDecode(token);
+    console.log("Decoded token:", decoded);
+
     const tokenExpiration = decoded.exp;
     const now = Date.now() / 1000;
 
@@ -53,6 +65,11 @@ const ProtectedRoutes: React.FC<React.PropsWithChildren<object>> = ({
       await refreshToken();
     } else {
       setIsAuthorized(true);
+
+      // also set profile here if not already set
+      if (decoded?.user_id) {
+        setProfile(decoded.user_id);
+      }
     }
   };
 

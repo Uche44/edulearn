@@ -4,13 +4,8 @@ import api from "../lib/api";
 import { FaBook } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa";
 import { FaClock } from "react-icons/fa";
+import type { Registration } from "../types/coursereg";
 
-type Registration = {
-  id: number;
-  course: { id: number; title: string };
-  instructor: { id: number; name: string };
-  // time: string;
-};
 
 const Classes: React.FC = () => {
   const [courses, setCourses] = useState<Registration[]>([]);
@@ -52,18 +47,14 @@ const Classes: React.FC = () => {
           {courses.map((cls, index) => (
             <div
               key={cls.id}
-              // 👇 Core container styling
               className="group relative cursor-pointer bg-purple-700 backdrop-blur-lg rounded-xl p-6 
-               border border-white/10 shadow-lg
-               transform-gpu transition-all duration-300 ease-in-out
+               border border-white/10 shadow-lg transform-gpu transition-all duration-300 ease-in-out
                hover:scale-[1.02] hover:shadow-2xl hover:border-white/20"
-              // 👇 Staggered animation for when the list loads
               style={{
                 animation: `fadeInUp 0.5s ${index * 0.1}s ease-out forwards`,
                 opacity: 0,
               }}
             >
-              {/* ✨ Animated Gradient Border on Hover */}
               <div
                 className="absolute inset-0 rounded-xl border-2 border-transparent 
                  opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -77,61 +68,35 @@ const Classes: React.FC = () => {
                 }}
               ></div>
 
-              {/* Ensure content is on top of the border element */}
               <div className="relative z-10 flex flex-col gap-4">
-                {/* 👨‍🏫 Course Title */}
+                {/* 📘 Course Title */}
                 <div className="flex items-center gap-3">
                   <div className="bg-white/60 p-2 rounded-lg">
                     <FaBook className="text-purple-600 text-2xl" />
                   </div>
                   <h2 className="text-white font-bold text-xl tracking-wide">
-                    {cls.course_title}
+                    {cls.lesson.course.title}
                   </h2>
                 </div>
 
-                {/* 👤 Instructor Info */}
-                <div className="flex items-center gap-3 text-slate-300">
+                {/* 👤 Student Info */}
+                {/* <div className="flex items-center gap-3 text-slate-300">
                   <FaUserTie className="text-slate-400 text-xl" />
                   <p className="text-slate-200 text-base">
-                    {cls.instructor_name}
+                    {cls.student_first_name} {cls.student_last_name}
                   </p>
-                </div>
+                </div> */}
 
                 {/* ⏰ Time Info */}
                 <div className="flex items-center gap-3 text-slate-300">
                   <FaClock className="text-slate-400 text-xl" />
                   <p className="text-slate-200 text-base">
-                    {/* {cls.time.slice(0, 5)} */}
+                    {cls.lesson.day_of_week}, {cls.lesson.time.slice(0, 5)}
                   </p>
                 </div>
               </div>
             </div>
           ))}
-
-          {/* {courses.map((cls) => (
-            <div
-              key={cls.id}
-              className="bg-purple-800 shadow-md rounded-lg p-4 flex flex-col gap-2 mb-4"
-            >
-              <div className="flex items-center gap-2 text-lg font-semibold"> */}
-          {/* <FaBook className="text-white text-2xl" />
-                <p className="text-white text-[1.1rem]">{cls.course_title}</p>
-              </div>
-              <div className="flex items-center gap-2 text-gray-700">
-                <FaUserTie className="mt-2 text-white text-2xl" />
-                <p className="text-white text-[1.1rem]">
-                  {cls.instructor_name}
-                </p>
-              </div>
-              <div className="flex items-center gap-2 text-gray-700">
-                <FaClock className="text-white text-[1.1rem]" />
-                <p className="text-white text-[1.1rem]">
-                  {cls.time.slice(0, 5)}
-                </p>{" "}
-               
-              </div>
-            </div>
-          ))} */}
         </div>
       )}
     </section>
