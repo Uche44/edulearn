@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../lib/api";
 
+
+
 type Profile = {
   firstname: string;
   lastname: string;
@@ -35,11 +37,11 @@ const UserProfile: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full bg-purple-100 shadow-md rounded-xl p-6">
+    <div className="flex flex-col items-center w-full bg-purple-100 shadow-md rounded-xl py-2  px-6">
       <img
         src=""
         alt=""
-        className="w-20 h-20 rounded-full border-4 border-gray-200 object-cover"
+        className="w-18 h-18 rounded-full border-4 border-gray-200 object-cover"
       />
 
     

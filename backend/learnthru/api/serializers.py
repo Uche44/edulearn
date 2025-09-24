@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Course, Instructor, Registration, Lesson
+from django.shortcuts import get_object_or_404
 
 # user serializer
 class UserSerializer(serializers.ModelSerializer):
@@ -51,18 +52,9 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "description", "instructors", "lessons"]
 
 
-# registration serializer
 class RegistrationSerializer(serializers.ModelSerializer):
-    # Write-only: accept course ID
-    course = serializers.PrimaryKeyRelatedField(
-        queryset=Course.objects.all(), write_only=True
-    )
-
-    # Read-only: expose details through lesson
-    course_title = serializers.CharField(source="course.title", read_only=True)
-    instructor_name = serializers.CharField(source="course.instructor.name", read_only=True)
-    start_time = serializers.DateTimeField(source="lesson.start_time", read_only=True)
-    end_time = serializers.DateTimeField(source="lesson.end_time", read_only=True)
+    # Accept only the lesson ID in the request
+    lesson = serializers.PrimaryKeyRelatedField(queryset=Lesson.objects.all())
 
     class Meta:
         model = Registration
@@ -71,22 +63,27 @@ class RegistrationSerializer(serializers.ModelSerializer):
             "student_first_name",
             "student_last_name",
             "email",
-            "course",           # write-only
-            "course_title",     # read-only
-            "instructor_name",  # read-only
-            "start_time",       # read-only
-            "end_time",         # read-only
+            "lesson",  
         ]
 
-    def create(self, validated_data):
-        course = validated_data.pop("course")
+    def to_representation(self, instance):
+        
+        representation = super().to_representation(instance)
+        lesson = instance.lesson
+        # three lines added
+        course = lesson.course
+        # Serialize instructors using InstructorSerializer
+        instructors = InstructorSerializer(course.instructors.all(), many=True).data
+        representation["lesson"] = {
+            "id": lesson.id,
+            "day_of_week": lesson.day_of_week,
+            "time": lesson.time,
+            "course": {
+                "id": lesson.course.id,
+                "title": lesson.course.title,
+                "description": lesson.course.description,
+                 "instructors": instructors,
+            },
+        }
+        return representation
 
-        # Find a lesson for this course (adjust logic if multiple lessons exist)
-        try:
-            lesson = Lesson.objects.filter(course=course).first()
-            if not lesson:
-                raise serializers.ValidationError("No lesson available for this course.")
-        except Lesson.DoesNotExist:
-            raise serializers.ValidationError("Invalid course.")
-
-        return Registration.objects.create(lesson=lesson, **validated_data)

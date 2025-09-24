@@ -29,5 +29,11 @@ class CourseListView(generics.ListAPIView):
 
 # reg
 class RegistrationViewSet(viewsets.ModelViewSet):
-    queryset = Registration.objects.all()
-    serializer_class = RegistrationSerializer    
+    serializer_class = RegistrationSerializer
+
+    def get_queryset(self):
+        queryset = Registration.objects.all()
+        user_id = self.request.query_params.get('user_id')
+        if user_id is not None:
+            queryset = queryset.filter(user__id=user_id)
+        return queryset

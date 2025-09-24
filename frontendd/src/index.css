@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/* Background gradient */
-/* body {
-  @apply bg-gradient-to-b from-violet-500 via-violet-700 to-violet-900 min-h-screen flex items-center justify-center;
-} */
-
 body {
   @apply bg-gray-200;
 }
@@ -46,7 +41,6 @@ body {
   backdrop-filter: blur(12px);
 }
 
-
 /*  animation for the class cards to fade in and slide up */
 @keyframes fadeInUp {
   from {
@@ -57,4 +51,77 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* .calendar{
+  border-radius: 0.5rem;
+ 
+  padding: 10px;
+
+} */
+
+.highlight-day {
+  background: #ba3cff !important; /* Tailwind blue-500 */
+  color: white !important;
+  border-radius: 50%;
+}
+
+/* Remove react-calendar's default look */
+.react-calendar {
+  border: none !important;
+  background: transparent !important;
+  font-family: "Inter", sans-serif;
+}
+
+/* Calendar wrapper */
+.modern-calendar {
+  width: 100%;
+}
+
+/* Navigation (Month / Year + arrows) */
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.react-calendar__navigation button {
+  @apply text-purple-600 font-bold text-lg p-2 rounded-lg transition;
+}
+
+.react-calendar__navigation button:hover {
+  @apply bg-purple-100;
+}
+
+/* Weekday headers (Mon, Tue, etc.) */
+.react-calendar__month-view__weekdays {
+  @apply text-gray-500 font-semibold uppercase text-xs;
+}
+.react-calendar__month-view__weekdays__weekday {
+  @apply text-center;
+}
+
+/* Days (tiles) */
+.react-calendar__tile {
+  @apply p-2 text-center rounded-xl transition;
+}
+
+.react-calendar__tile:hover {
+  @apply bg-purple-100 text-purple-700;
+}
+
+/* Today */
+.react-calendar__tile--now {
+  @apply bg-purple-50 border border-purple-300 rounded-xl font-bold;
+}
+
+/* Selected day */
+.react-calendar__tile--active {
+  @apply bg-purple-600 text-white rounded-xl font-bold;
+}
+
+/* Highlighted class days */
+.highlight-day {
+  @apply bg-purple-500 text-white font-bold rounded-full;
 }

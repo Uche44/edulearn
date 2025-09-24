@@ -63,7 +63,7 @@ class Lesson(models.Model):
     specific_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        time_str = self.time.strftime("%I:%M %p")  # e.g., "02:00 PM"
+        time_str = self.time.strftime("%I:%M %p")  
         if self.specific_date:
             return f"{self.course.title} - {self.specific_date.strftime('%b %d, %Y')} at {time_str}"
         return f"{self.course.title} - {self.get_day_of_week_display()} at {time_str} ({self.start_date.strftime('%b %d, %Y')} → {self.end_date.strftime('%b %d, %Y')})"

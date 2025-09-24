@@ -3,7 +3,7 @@ import Sidebar from "../components/sidebar";
 import { BiX, BiMenu } from "react-icons/bi";
 import UserProfile from "./profilepage";
 import { Outlet } from "react-router-dom";
-
+import ClassCalendar from "../components/calendar";
 
 const Dashboard: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -36,13 +36,10 @@ const Dashboard: React.FC = () => {
       {isProfileOpen && (
         <div className="fixed inset-0 z-110 hidden md:flex">
           {/* Backdrop */}
-          <div
-            className="flex-1 bg-black/50"
-            
-          />
+          <div className="flex-1 bg-black/50" />
 
           {/* profile drawer */}
-          <div className="w-[25%] px-4 py-14 bg-white shadow-lg relative">
+          <div className="w-[28%] px-4 py-14 bg-white shadow-lg relative">
             <button
               onClick={() => setIsProfileOpen(false)}
               className="absolute top-4 cursor-pointer right-2 z-50 p-2 text-3xl text-purple-900 rounded md:block hidden"
@@ -51,6 +48,7 @@ const Dashboard: React.FC = () => {
             </button>
 
             <UserProfile />
+            <ClassCalendar />
           </div>
         </div>
       )}
