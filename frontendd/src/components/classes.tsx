@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import api from "../lib/api";
-import { FaBook } from "react-icons/fa";
-import { FaUserTie } from "react-icons/fa";
-import { FaClock } from "react-icons/fa";
+import { FaUserTie, FaClock, FaBook } from "react-icons/fa";
 import type { Registration } from "../types/coursereg";
-
+import { useUserProfile } from "../context/userprofile";
 
 const Classes: React.FC = () => {
   const [courses, setCourses] = useState<Registration[]>([]);
+  const { profile } = useUserProfile();
+  const userId = profile?.id;
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await api.get("/api/registrations/");
+        const res = await api.get(`/api/registrations/?user_id=${userId}`);
         if (res.status === 200) {
           console.log("Course fetched successfully:", res.data);
           setCourses(res.data);
@@ -79,13 +79,15 @@ const Classes: React.FC = () => {
                   </h2>
                 </div>
 
-                {/* 👤 Student Info */}
-                {/* <div className="flex items-center gap-3 text-slate-300">
-                  <FaUserTie className="text-slate-400 text-xl" />
-                  <p className="text-slate-200 text-base">
-                    {cls.student_first_name} {cls.student_last_name}
-                  </p>
-                </div> */}
+                {/* 👤 Instructor Info */}
+                {cls.lesson.course.instructor && (
+                  <div className="flex items-center gap-3 text-slate-300">
+                    <FaUserTie className="text-slate-400 text-xl" />
+                    <p className="text-slate-200 text-base">
+                      {cls.lesson.course.instructor.name}
+                    </p>
+                  </div>
+                )}
 
                 {/* ⏰ Time Info */}
                 <div className="flex items-center gap-3 text-slate-300">

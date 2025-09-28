@@ -345,7 +345,6 @@
 
 // export default RegisterClass;
 
-
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../lib/api";
@@ -353,9 +352,9 @@ import type { Course, LessonForm, FormValues } from "../types/coursereg";
 
 const RegisterClass: React.FC = () => {
   const [form, setForm] = useState<FormValues>({
-    studentFirstName: "",
-    studentLastName: "",
-    email: "",
+    // studentFirstName: "",
+    // studentLastName: "",
+    // email: "",
     lessons: [{ lesson: "" }],
   });
 
@@ -402,18 +401,6 @@ const RegisterClass: React.FC = () => {
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
-
-    if (!form.studentFirstName.trim())
-      newErrors.studentFirstName = "First name is required";
-
-    if (!form.studentLastName.trim())
-      newErrors.studentLastName = "Last name is required";
-
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      newErrors.email = "Invalid email";
-    }
 
     if (form.lessons.length === 0) {
       newErrors.lessons = "At least one lesson is required";
@@ -464,9 +451,6 @@ const RegisterClass: React.FC = () => {
       try {
         for (const l of form.lessons) {
           const payload = {
-            student_first_name: form.studentFirstName,
-            student_last_name: form.studentLastName,
-            email: form.email,
             lesson: parseInt(l.lesson),
           };
 
@@ -480,9 +464,6 @@ const RegisterClass: React.FC = () => {
         alert("Class registration successful!");
 
         setForm({
-          studentFirstName: "",
-          studentLastName: "",
-          email: "",
           lessons: [{ lesson: "" }],
         });
         setErrors({});
@@ -510,8 +491,8 @@ const RegisterClass: React.FC = () => {
             <div>
               <label className="block text-sm font-medium">First Name</label>
               <input
-                value={form.studentFirstName}
-                onChange={(e) => handleChange(e, "studentFirstName")}
+                // value={form.studentFirstName}
+                // onChange={(e) => handleChange(e, "studentFirstName")}
                 className="w-full border rounded p-2"
                 placeholder="Enter first name"
               />
@@ -521,23 +502,12 @@ const RegisterClass: React.FC = () => {
             <div>
               <label className="block text-sm font-medium">Last Name</label>
               <input
-                value={form.studentLastName}
-                onChange={(e) => handleChange(e, "studentLastName")}
+                // value={form.studentLastName}
+                // onChange={(e) => handleChange(e, "studentLastName")}
                 className="w-full border rounded p-2"
                 placeholder="Enter last name"
               />
               <p className="text-red-500 text-sm">{errors.studentLastName}</p>
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium">Email</label>
-              <input
-                value={form.email}
-                onChange={(e) => handleChange(e, "email")}
-                className="w-full border rounded p-2"
-                placeholder="Enter email"
-              />
-              <p className="text-red-500 text-sm">{errors.email}</p>
             </div>
           </div>
 
@@ -616,9 +586,9 @@ const RegisterClass: React.FC = () => {
               type="reset"
               onClick={() =>
                 setForm({
-                  studentFirstName: "",
-                  studentLastName: "",
-                  email: "",
+                  // studentFirstName: "",
+                  // studentLastName: "",
+                  // email: "",
                   lessons: [{ lesson: "" }],
                 })
               }

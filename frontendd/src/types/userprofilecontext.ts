@@ -1,6 +1,5 @@
 export type Profile = {
   username?: string;
-  email?: string;
   id?: string;
 };
 

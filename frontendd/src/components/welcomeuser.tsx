@@ -13,12 +13,11 @@ type WelcomeuserProps = {
 };
 
 const Welcomeuser: React.FC<WelcomeuserProps> = ({
-  userName,
-  // setIsProfileOpen,
+  userName
 }) => {
   const [courseDetails, setCourseDetails] = useState<CourseDetailsType[]>([]);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
-  const [currentInstructorIndex, setCurrentInstructorIndex] = useState(0);
+
   const [fade, setFade] = useState(true);
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
       try {
         const res = await api.get("/api/courses/");
         console.log("course data", res.data);
-        setCourseDetails(res.data); // ✅ save to state
+        setCourseDetails(res.data);
       } catch (err: any) {
         console.error(
           "Failed to fetch user:",
@@ -51,14 +50,7 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
           Math.random() * courseDetails.length
         );
 
-        // pick random instructor within that course
-        const instructors = courseDetails[nextCourseIndex].instructors;
-        const nextInstructorIndex = Math.floor(
-          Math.random() * instructors.length
-        );
-
         setCurrentCourseIndex(nextCourseIndex);
-        setCurrentInstructorIndex(nextInstructorIndex);
 
         setFade(true);
       }, 400);
@@ -69,12 +61,11 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
 
   const registerChosenCourse = async () => {
     const chosenCourse = courseDetails[currentCourseIndex];
-    const chosenInstructor = chosenCourse.instructors[currentInstructorIndex];
 
     navigate("/register-class", {
       state: {
         course: chosenCourse,
-        instructor: chosenInstructor,
+        // instructor: chosenInstructor,
       },
     });
   };
@@ -97,20 +88,10 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
                 {courseDetails[currentCourseIndex].description}
               </span>
               <span className="block italic">
-                by{" "}
-                {
-                  courseDetails[currentCourseIndex].instructors[
-                    currentInstructorIndex
-                  ].name
-                }
-                ,
+                by {courseDetails[currentCourseIndex].instructor.name},
               </span>
               <span className="block">
-                {
-                  courseDetails[currentCourseIndex].instructors[
-                    currentInstructorIndex
-                  ].bio
-                }
+                {courseDetails[currentCourseIndex].instructor.bio}
               </span>
             </span>
           )}

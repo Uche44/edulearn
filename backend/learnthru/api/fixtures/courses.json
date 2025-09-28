@@ -139,7 +139,7 @@
     "fields": {
       "title": "Mathematics",
       "description": "Basic Math Course",
-      "instructors": [1, 2]
+      "instructor": 1
     }
   },
   {
@@ -148,7 +148,7 @@
     "fields": {
       "title": "Physics",
       "description": "Intro to Physics",
-      "instructors": [3, 4]
+      "instructor": 3
     }
   },
   {
@@ -157,7 +157,7 @@
     "fields": {
       "title": "Chemistry",
       "description": "Foundations of Chemistry",
-      "instructors": [5, 6]
+      "instructor": 5
     }
   },
   {
@@ -166,7 +166,7 @@
     "fields": {
       "title": "Biology",
       "description": "Introduction to Biology",
-      "instructors": [7, 8]
+      "instructor": 7
     }
   },
   {
@@ -175,7 +175,7 @@
     "fields": {
       "title": "Computer Science",
       "description": "Fundamentals of Programming",
-      "instructors": [9, 10]
+      "instructor": 9
     }
   },
   {
@@ -184,7 +184,7 @@
     "fields": {
       "title": "History",
       "description": "World History Overview",
-      "instructors": [11, 12]
+      "instructor": 11
     }
   },
   {
@@ -193,7 +193,7 @@
     "fields": {
       "title": "Philosophy",
       "description": "Introduction to Philosophy",
-      "instructors": [13, 14]
+      "instructor": 13
     }
   },
   {
@@ -202,7 +202,7 @@
     "fields": {
       "title": "Economics",
       "description": "Principles of Economics",
-      "instructors": [15, 16]
+      "instructor": 15
     }
   },
   {
@@ -211,7 +211,7 @@
     "fields": {
       "title": "Art",
       "description": "History of Art and Design",
-      "instructors": [17, 18]
+      "instructor": 17
     }
   },
   {
@@ -220,7 +220,7 @@
     "fields": {
       "title": "Music",
       "description": "Theory and Practice of Music",
-      "instructors": [19, 20]
+      "instructor": 19
     }
   },
 
