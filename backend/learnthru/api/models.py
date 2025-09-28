@@ -1,10 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Instructor(models.Model):
     name = models.CharField(max_length=100)
     bio = models.TextField(blank=True)
-    # course = models.ForeignKey(Course, related_name="instructors", on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.name
@@ -13,17 +12,19 @@ class Instructor(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    instructors = models.ManyToManyField(Instructor, related_name="courses")
+    instructor = models.ForeignKey(
+        "Instructor",
+        on_delete=models.CASCADE,
+        related_name="courses"
+    )
 
     def __str__(self):
         return self.title
 
 class Registration(models.Model):
-    student_first_name = models.CharField(max_length=100)
-    student_last_name = models.CharField(max_length=100)
-    email = models.EmailField()
 
-    # A registration links directly to a lesson (which already has course + time info)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="registrations")
+
     lesson = models.ForeignKey(
         "Lesson",
         on_delete=models.CASCADE,
@@ -31,7 +32,7 @@ class Registration(models.Model):
     )
 
     def __str__(self):
-        return f"{self.student_first_name} {self.student_last_name} - {self.lesson}"
+        return f"{self.lesson}"
 
 
 

@@ -42,14 +42,12 @@ class LessonSerializer(serializers.ModelSerializer):
 
 # course serializer
 class CourseSerializer(serializers.ModelSerializer):
-    instructors = InstructorSerializer(many=True, read_only=True)
+    instructor = InstructorSerializer(read_only=True)
     lessons = LessonSerializer(many=True, read_only=True)
-
-
 
     class Meta:
         model = Course
-        fields = ["id", "title", "description", "instructors", "lessons"]
+        fields = ["id", "title", "description", "instructor", "lessons"]
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -60,29 +58,23 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = Registration
         fields = [
             "id",
-            "student_first_name",
-            "student_last_name",
-            "email",
             "lesson",  
         ]
 
     def to_representation(self, instance):
-        
         representation = super().to_representation(instance)
         lesson = instance.lesson
-        # three lines added
         course = lesson.course
-        # Serialize instructors using InstructorSerializer
-        instructors = InstructorSerializer(course.instructors.all(), many=True).data
+        instructor = InstructorSerializer(course.instructor).data if course.instructor else None
         representation["lesson"] = {
             "id": lesson.id,
             "day_of_week": lesson.day_of_week,
             "time": lesson.time,
             "course": {
-                "id": lesson.course.id,
-                "title": lesson.course.title,
-                "description": lesson.course.description,
-                 "instructors": instructors,
+                "id": course.id,
+                "title": course.title,
+                "description": course.description,
+                "instructor": instructor,
             },
         }
         return representation

@@ -1,12 +1,12 @@
-
 import api from "../lib/api";
 
 export const fetchUserDetails = async () => {
   try {
-    const res = await api.get("/api/user/"); 
-    return res.data; 
+    const res = await api.get("/api/user/");
+    console.log("Current User:", res.data);
+    return res.data;
   } catch (err: any) {
     console.error("Failed to fetch user:", err.response?.data || err.message);
-    throw err; 
+    throw err;
   }
 };

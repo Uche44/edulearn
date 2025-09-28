@@ -8,7 +8,7 @@ type Course = {
   id: number;
   title: string;
   description: string;
-  instructors: Instructor[];
+  instructor: Instructor | null;
 };
 
 // type CourseForm = {
@@ -30,9 +30,6 @@ type LessonForm = {
 };
 
 type FormValues = {
-  studentFirstName: string;
-  studentLastName: string;
-  email: string;
   lessons: LessonForm[]; // array of lessons selected
 };
 
@@ -49,8 +46,9 @@ type Registration = {
       id: number;
       title: string;
       description: string;
+      instructor: Instructor | null;
     };
   };
 };
 
-export type {LessonForm, FormValues, Course, Instructor, Registration}
+export type { LessonForm, FormValues, Course, Instructor, Registration };
