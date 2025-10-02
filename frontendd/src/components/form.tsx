@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import api from "../lib/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../lib/constants";
 import type { FormDataType, ErrorType, FormProps } from "../types";
-import { useUserProfile } from "../context/userprofile";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import Loading from "./loading";
+import { toast } from "sonner";
 
 type TokenPayload = {
   username?: string;
@@ -19,7 +20,6 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
   const [errors, setErrors] = useState<ErrorType>({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setProfile } = useUserProfile();
 
   const validate = () => {
     const newErrors: ErrorType = {};
@@ -34,14 +34,15 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
     if (!validate()) return;
 
     try {
+      setLoading(true);
       const res = await api.post(route, formData);
+
       if (method === "login") {
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
 
         const decoded: TokenPayload = jwtDecode(res.data.access);
-        setProfile({ username: decoded.username || "", id: decoded.user_id });
-
+        toast("login successful!");
         navigate("/");
       } else {
         navigate("/login");
@@ -50,6 +51,7 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
       setLoading(false);
       console.log(err);
       setErrors({ general: "Login failed. Please check your credentials." });
+       toast("Login failed. Please check your credentials.");
     } finally {
       setLoading(false);
     }
@@ -58,6 +60,8 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      {loading && <Loading />}
+
       <div className="absolute hidden md:block md:w-[500px] md:h-[500px] bg-violet-400/30 rounded-full animate-float top-10 left-10"></div>
       <div className="absolute hidden md:block md:w-[300px] md:h-[300px] bg-violet-500/20 rounded-full animate-float top-40 right-20"></div>
       <div className="absolute hidden md:block md:w-[200px] md:h-[200px] bg-violet-300/30 rounded-full animate-float bottom-20 left-40"></div>

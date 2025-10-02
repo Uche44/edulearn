@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import api from "../lib/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../lib/constants";
+import type { DecodedToken } from "../types/protectedRoutes";
 
 const ProtectedRoutes: React.FC<React.PropsWithChildren<object>> = ({
   children,
@@ -10,58 +11,50 @@ const ProtectedRoutes: React.FC<React.PropsWithChildren<object>> = ({
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    auth().catch(() => setIsAuthorized(false));
-  });
+    let mounted = true;
 
-  const refreshToken = async () => {
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-    try {
-      const res = await api.post("api/token/refresh", {
-        refresh: refreshToken,
-      });
+    const checkAuth = async () => {
+      try {
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        if (!token) {
+          if (mounted) setIsAuthorized(false);
+          console.log("auth error: invalid or no token");
+          return;
+        }
 
-      if (res.status === 200) {
-        const newAccessToken = res.data.access;
-        localStorage.setItem(ACCESS_TOKEN, newAccessToken);
+        const decoded: DecodedToken = jwtDecode(token);
+        const now = Date.now() / 1000;
 
-        const decoded: any = jwtDecode(newAccessToken);
-        console.log("New token info:", decoded);
+        if (typeof decoded.exp !== "number") {
+          if (mounted) setIsAuthorized(false);
+          return;
+        }
 
-        setIsAuthorized(true);
-      } else {
-        setIsAuthorized(false);
+        if (decoded.exp < now) {
+          // refresh
+          const refresh = localStorage.getItem(REFRESH_TOKEN);
+          const res = await api.post("api/token/refresh", { refresh });
+          if (res.status === 200) {
+            localStorage.setItem(ACCESS_TOKEN, res.data.access);
+            if (mounted) setIsAuthorized(true);
+          } else {
+            if (mounted) setIsAuthorized(false);
+          }
+        } else {
+          if (mounted) setIsAuthorized(true);
+        }
+      } catch (err) {
+        console.error(err);
+        if (mounted) setIsAuthorized(false);
       }
-    } catch (error) {
-      console.log(error);
-      setIsAuthorized(false);
-    }
-  };
+    };
 
-  const auth = async () => {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (!token) {
-      setIsAuthorized(false);
-      return;
-    }
+    checkAuth();
 
-    const decoded: any = jwtDecode(token);
-
-    console.log("Decoded token Info:", decoded);
-
-    const tokenExpiration = decoded.exp;
-    const now = Date.now() / 1000;
-
-    if (typeof tokenExpiration !== "number") {
-      setIsAuthorized(false);
-      return;
-    }
-
-    if (tokenExpiration < now) {
-      await refreshToken();
-    } else {
-      setIsAuthorized(true);
-    }
-  };
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   if (isAuthorized === null) {
     return <div>Loading...</div>;

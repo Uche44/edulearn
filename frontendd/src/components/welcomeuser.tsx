@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom";
 import api from "../lib/api";
 
 type CourseDetailsType = {
-  instructorName: string;
   description: string;
-  instructorBio: string;
+  instructor: {
+    name: string;
+    bio: string;
+  };
 };
 
 type WelcomeuserProps = {
   userName: string;
 };
 
-const Welcomeuser: React.FC<WelcomeuserProps> = ({
-  userName
-}) => {
+const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
   const [courseDetails, setCourseDetails] = useState<CourseDetailsType[]>([]);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
 
@@ -45,7 +45,6 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
       setFade(false);
 
       setTimeout(() => {
-        // pick random course
         const nextCourseIndex = Math.floor(
           Math.random() * courseDetails.length
         );
@@ -65,7 +64,6 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({
     navigate("/register-class", {
       state: {
         course: chosenCourse,
-        // instructor: chosenInstructor,
       },
     });
   };
