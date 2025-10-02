@@ -11,26 +11,12 @@ type Course = {
   instructor: Instructor | null;
 };
 
-// type CourseForm = {
-//   course: string; // store course id as string
-//   instructor: string; // store instructor id as string
-//   // time: string;
-// };
-
-// type FormValues = {
-//   studentFirstName: string;
-//   studentLastName: string;
-//   email: string;
-//   courses: CourseForm[];
-// };
-
-// Instead of tracking course + instructor, just track lesson
 type LessonForm = {
-  lesson: string; // store lesson id as string
+  lesson: string; 
 };
 
 type FormValues = {
-  lessons: LessonForm[]; // array of lessons selected
+  lessons: LessonForm[]; 
 };
 
 type Registration = {

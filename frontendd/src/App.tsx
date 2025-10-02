@@ -12,6 +12,7 @@ import RegisterClass from "./pages/classreg";
 import Classroom from "./pages/classroom";
 import Dashboardindex from "./pages/dashboardindex";
 import { UserProfileProvider } from "./context/userprofile";
+import { Toaster } from "./components/ui/sonner";
 // import NotFound from "./components/NotFound";
 
 const RegisterAndLogOut: React.FC = () => {
@@ -67,6 +68,7 @@ const router = createBrowserRouter([
 const App: React.FC = () => {
   return (
     <UserProfileProvider>
+      <Toaster />
       <RouterProvider router={router} />
     </UserProfileProvider>
   );
