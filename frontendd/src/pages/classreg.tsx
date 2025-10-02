@@ -3,8 +3,7 @@ import { useLocation } from "react-router-dom";
 import api from "../lib/api";
 import type { Course, FormValues } from "../types/coursereg";
 import Loading from "../components/loading";
-import { toast } from "sonner";
-
+import { handleSubmit as submit } from "@/utils/handleSubmit";
 const RegisterClass: React.FC = () => {
   const [form, setForm] = useState<FormValues>({
     lessons: [{ lesson: "" }],
@@ -68,13 +67,6 @@ const RegisterClass: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: keyof FormValues
-  ) => {
-    setForm({ ...form, [field]: e.target.value });
-  };
-
   const handleLessonChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
     index: number
@@ -100,37 +92,15 @@ const RegisterClass: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      try {
-        setLoading(true);
-        for (const l of form.lessons) {
-          const payload = {
-            lesson: parseInt(l.lesson),
-          };
 
-          const res = await api.post("/api/registrations/", payload);
-
-          if (res.status === 201) {
-            console.log("Class registered successfully:", res.data);
-            toast("Class registration successful!");
-          }
-        }
-
-        setForm({
-          lessons: [{ lesson: "" }],
-        });
-        setErrors({});
-      } catch (err: any) {
-        setLoading(false);
-        console.error(
-          "Error submitting form:",
-          err.response?.data || err.message
-        );
-        alert("Something went wrong. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    }
+    const classData = await submit(
+      validate,
+      setLoading,
+      form,
+      setForm,
+      setErrors
+    );
+    console.log("regged course:", classData);
   };
 
   return (
@@ -149,7 +119,7 @@ const RegisterClass: React.FC = () => {
               <label className="block text-sm font-medium">First Name</label>
               <input
                 // value={form.studentFirstName}
-                // onChange={(e) => handleChange(e, "studentFirstName")}
+
                 className="w-full border rounded p-2"
                 placeholder="Enter first name"
               />
@@ -160,7 +130,6 @@ const RegisterClass: React.FC = () => {
               <label className="block text-sm font-medium">Last Name</label>
               <input
                 // value={form.studentLastName}
-                // onChange={(e) => handleChange(e, "studentLastName")}
                 className="w-full border rounded p-2"
                 placeholder="Enter last name"
               />
@@ -195,7 +164,7 @@ const RegisterClass: React.FC = () => {
                             key={l.id}
                             value={l.id}
                           >
-                            {c.title} - {l.day_of_week_display} @ {l.time}
+                            {c.title} - {l.day_of_week_display} @ {l.time}pm
                           </option>
                         ))
                       )}
@@ -235,7 +204,7 @@ const RegisterClass: React.FC = () => {
           <div className="flex space-x-4">
             <button
               type="submit"
-              className="px-6 py-2 bg-purple-600 text-white rounded-md"
+              className="px-6 py-2 bg-purple-600 text-white rounded-md cursor-pointer"
             >
               Save
             </button>
@@ -243,9 +212,6 @@ const RegisterClass: React.FC = () => {
               type="reset"
               onClick={() =>
                 setForm({
-                  // studentFirstName: "",
-                  // studentLastName: "",
-                  // email: "",
                   lessons: [{ lesson: "" }],
                 })
               }
