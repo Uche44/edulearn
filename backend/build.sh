@@ -2,4 +2,4 @@ set -o errexit
 
 pip install -r requirements.txt
 
-python manage.py migrate --noinput
+python learnthru/manage.py migrate --noinput
