@@ -6,11 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Loading from "./loading";
 import { toast } from "sonner";
-
-type TokenPayload = {
-  username?: string;
-  user_id: string;
-};
+import type { TokenPayload } from "../types";
 
 const Form: React.FC<FormProps> = ({ route, method }) => {
   const [formData, setFormData] = useState<FormDataType>({
@@ -51,7 +47,7 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
       setLoading(false);
       console.log(err);
       setErrors({ general: "Login failed. Please check your credentials." });
-       toast("Login failed. Please check your credentials.");
+      toast("Login failed. Please check your credentials.");
     } finally {
       setLoading(false);
     }
