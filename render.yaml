@@ -3,5 +3,5 @@ services:
     name: my-django-backend
     env: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    buildCommand: ./build.sh
     startCommand: gunicorn backend.wsgi:application
