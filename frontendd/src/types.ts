@@ -10,3 +10,8 @@ export interface FormProps {
   route: string;
   method: "login" | "register";
 }
+
+export type TokenPayload = {
+  username?: string;
+  user_id: string;
+};
