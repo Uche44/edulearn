@@ -4,4 +4,4 @@ services:
     env: python
     rootDir: backend
     buildCommand: ./build.sh
-    startCommand: gunicorn backend.wsgi:application
+    startCommand: gunicorn learnthru.asgi:application -k uvicorn.workers.UvicornWorker
