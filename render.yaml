@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: my-django-backend
-    env: python
-    rootDir: backend
-    buildCommand: ./build.sh
-    startCommand: gunicorn learnthru.learnthru.asgi:application -k uvicorn.workers.UvicornWorker
