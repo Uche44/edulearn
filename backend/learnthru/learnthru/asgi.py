@@ -11,8 +11,8 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-settings_module = 'learnthru.deployment_settings' if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else 'learnthru.settings'
+# settings_module = 'learnthru.deployment_settings' if 'RENDER_EXTERNAL_HOSTNAME' in os.environ else 'learnthru.settings'
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'learnthru.settings')
 
 application = get_asgi_application()
