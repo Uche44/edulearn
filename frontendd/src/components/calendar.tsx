@@ -37,7 +37,7 @@ const ClassCalendar = () => {
     fetchCourses();
   }, []);
 
-  // Function to add highlight class to specific days
+  // add highlight to specific days
   const tileClassName = ({ date }: { date: Date }) => {
     const day = date.getDay(); // 0-6
     const hasClass = classes.some((c) => dayMap[c.lesson.day_of_week] === day);
