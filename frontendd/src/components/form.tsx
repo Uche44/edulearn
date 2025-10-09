@@ -3,7 +3,7 @@ import api from "../lib/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../lib/constants";
 import type { FormDataType, ErrorType, FormProps } from "../types";
 import { useUserProfile } from "@/context/userprofile";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Loading from "./loading";
 import { toast } from "sonner";
@@ -116,6 +116,18 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
           {method === "login" ? "Login" : "Register"}
         </button>
       </form>
+
+      {method === "login" && (
+        <p className="text-gray-600 absolute bottom-10">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="cursor-pointer text-purple-600 font-medium"
+          >
+            Register
+          </Link>
+        </p>
+      )}
     </div>
   );
 };
