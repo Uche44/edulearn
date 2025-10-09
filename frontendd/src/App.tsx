@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,9 +11,12 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import RegisterClass from "./pages/classreg";
 import Classroom from "./pages/classroom";
 import Dashboardindex from "./pages/dashboardindex";
+import LiveLessons from "./pages/livelessons";
+import RecordedLessons from "./pages/recordedlesson";
+import VideoLessons from "./pages/videolessons";
 import UserProfileProvider from "./context/userprofile";
 import { Toaster } from "./components/ui/sonner";
-// import NotFound from "./components/NotFound";
+import NotFound from "./components/notfound";
 
 const RegisterAndLogOut: React.FC = () => {
   const navigate = useNavigate();
@@ -45,6 +48,18 @@ const router = createBrowserRouter([
         path: "classroom",
         element: <Classroom />,
       },
+      {
+        path: "live",
+        element: <LiveLessons />,
+      },
+      {
+        path: "recorded",
+        element: <RecordedLessons />,
+      },
+      {
+        path: "library",
+        element: <VideoLessons />,
+      },
     ],
   },
   {
@@ -59,10 +74,10 @@ const router = createBrowserRouter([
     path: "/register-logout",
     element: <RegisterAndLogOut />,
   },
-  // {
-  //   path: "*",
-  //   element: <NotFound />,
-  // },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 const App: React.FC = () => {
