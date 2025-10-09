@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Input from "../components/input";
 import Welcomeuser from "../components/welcomeuser";
 import Classes from "../components/classes";
+import DateComponent from "@/components/date";
+
 import { fetchUserDetails } from "../utils/fetchUserDetails";
 const Dashboardindex: React.FC = () => {
   const [userName, setUserName] = useState<string | null>(null);
@@ -23,13 +25,9 @@ const Dashboardindex: React.FC = () => {
   return (
     <section className="p-6 min-h-screen w-full md:w-[95%] md:ml-[5%]">
       <Input />
-      {/* <DateComponent /> */}
+      <DateComponent />
 
-     
-      <Welcomeuser
-        userName={userName}
-        
-      />
+      <Welcomeuser userName={userName ?? ""} />
 
       <Classes />
     </section>

@@ -27,11 +27,12 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
         const res = await api.get("/api/courses/");
         console.log("course data", res.data);
         setCourseDetails(res.data);
-      } catch (err: any) {
-        console.error(
-          "Failed to fetch user:",
-          err.response?.data || err.message
-        );
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error("Failed to fetch user:", err);
+        } else {
+          console.error("Failed to fetch user:", String(err));
+        }
       }
     };
 

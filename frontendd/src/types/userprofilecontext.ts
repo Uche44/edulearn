@@ -5,6 +5,6 @@ export type Profile = {
 
 
 export type UserProfileContextType = {
-  profile: Profile;
-  setProfile: React.Dispatch<React.SetStateAction<Profile>>;
+  profile: Profile | null;
+  setProfile: React.Dispatch<React.SetStateAction<Profile | null>>;
 };

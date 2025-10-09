@@ -4,19 +4,24 @@ type Instructor = {
   bio: string;
 };
 
+type LessonForm = {
+  lesson: string;
+  id?: string;
+  day_of_week_display?: string;
+  time?: string;
+};
+
 type Course = {
   id: number;
   title: string;
   description: string;
   instructor: Instructor | null;
-};
 
-type LessonForm = {
-  lesson: string; 
+  lessons: LessonForm[];
 };
 
 type FormValues = {
-  lessons: LessonForm[]; 
+  lessons: LessonForm[];
 };
 
 type Registration = {

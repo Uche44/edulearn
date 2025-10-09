@@ -38,8 +38,8 @@ const RegisterClass: React.FC = () => {
         });
         setAvailableCourses(res.data);
         console.log(res.data);
-      } catch (err: any) {
-        if (err.name === "CanceledError") {
+      } catch (err: unknown) {
+        if (err instanceof Error) {
           console.log("Request canceled:", err.message);
         } else {
           console.error("Error fetching courses:", err);
