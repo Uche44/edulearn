@@ -1,6 +1,7 @@
 import api from "@/lib/api";
 import { toast } from "sonner";
 
+
 interface Lesson {
   lesson: string;
 }
@@ -38,6 +39,7 @@ export const handleSubmit = async (
         if (res.status === 201) {
           console.log("Class registered successfully:", res.data);
           toast("Class registration successful!");
+        
           return res.data;
         }
       }

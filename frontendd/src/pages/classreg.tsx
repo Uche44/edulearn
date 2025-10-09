@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import api from "../lib/api";
 import type { Course, FormValues } from "../types/coursereg";
 import Loading from "../components/loading";
@@ -17,6 +17,7 @@ const RegisterClass: React.FC = () => {
   const location = useLocation();
   const { lesson } = location.state || {};
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (lesson) {
       setForm((prev) => ({
@@ -100,7 +101,10 @@ const RegisterClass: React.FC = () => {
       setForm,
       setErrors
     );
-    console.log("regged course:", classData);
+    // console.log("regged course:", classData);
+    if (classData) {
+      navigate("/");
+    }
   };
 
   return (
