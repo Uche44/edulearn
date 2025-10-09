@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../lib/api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../lib/constants";
 import type { FormDataType, ErrorType, FormProps } from "../types";
+import { useUserProfile } from "@/context/userprofile";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Loading from "./loading";
@@ -9,6 +10,8 @@ import { toast } from "sonner";
 import type { TokenPayload } from "../types";
 
 const Form: React.FC<FormProps> = ({ route, method }) => {
+  const { setProfile } = useUserProfile();
+
   const [formData, setFormData] = useState<FormDataType>({
     username: "",
     password: "",
@@ -38,6 +41,11 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
 
         const decoded: TokenPayload = jwtDecode(res.data.access);
+
+        setProfile({
+          id: decoded.user_id,
+        });
+
         toast("login successful!");
         navigate("/");
       } else {
@@ -98,7 +106,6 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
           {errors.password && (
             <p className="text-red-400 text-sm mt-1">{errors.password}</p>
           )}
-          {/* <div className="h-full w-20"></div> */}
         </div>
 
         <button

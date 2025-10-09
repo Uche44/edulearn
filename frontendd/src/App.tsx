@@ -11,7 +11,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import RegisterClass from "./pages/classreg";
 import Classroom from "./pages/classroom";
 import Dashboardindex from "./pages/dashboardindex";
-import { UserProfileProvider } from "./context/userprofile";
+import UserProfileProvider from "./context/userprofile";
 import { Toaster } from "./components/ui/sonner";
 // import NotFound from "./components/NotFound";
 

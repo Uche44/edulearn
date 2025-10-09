@@ -1,4 +1,4 @@
-import React from "react";
+
 import Form from "../components/form";
 const Register: React.FC = () => {
   return (

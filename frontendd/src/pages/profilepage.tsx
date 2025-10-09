@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchUserDetails } from "../utils/fetchUserDetails";
 import type { Profile } from "../types/userprofilecontext";
 import { FaUser } from "react-icons/fa";
