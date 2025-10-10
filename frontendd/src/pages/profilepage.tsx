@@ -13,7 +13,7 @@ const UserProfile: React.FC = () => {
 
         setProfile(data);
 
-        // setUserName(name);
+      
       } catch (error) {
         console.log(error);
       }
@@ -23,14 +23,14 @@ const UserProfile: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full bg-purple-100 shadow-md rounded-xl py-2  px-6 relative">
+    <div className="flex flex-col items-center w-full bg-purple-100 shadow-md rounded-xl py-2  md:px-6 relative">
 
       <FaUser className="w-18 h-18 rounded-full mt-4 text-gray-600 border-4 border-gray-200 object-cover" />
 
       <h2 className="mt-2 text-lg font-bold text-gray-800">
         {profile ? profile.username : "Loading..."}
       </h2>
-      <div className=" absolute top-4 right-4 bg-green-400 md:px-4 md:py-2 rounded-[5px] ">
+      <div className=" absolute top-4 right-4 bg-green-400 p-3 md:px-4 md:py-2 rounded-[5px] ">
         <p className="text-gray-600 text-xl font-semibold">
           {profile ? profile.id : "Loading..."}
         </p>

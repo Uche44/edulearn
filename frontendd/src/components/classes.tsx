@@ -40,14 +40,14 @@ const Classes: React.FC = () => {
           </NavLink>
         </div>
       ) : (
-        <div className="gap-4 md:grid grid-cols-4 pt-11 relative">
-          <h3 className="absolute font-semibold text-[1.3rem] text-gray-500 tracking-wider">
+        <div className=" gap-4 md:grid grid-cols-4 md:pt-11 relative">
+          <h3 className="text-[1.6rem] md:absolute font-semibold md:text-[1.3rem] text-gray-500 tracking-wider">
             Your Classes
           </h3>
           {courses.map((cls, index) => (
             <div
               key={cls.id}
-              className="group relative cursor-pointer bg-purple-700 backdrop-blur-lg rounded-xl p-6 
+              className="group relative cursor-pointer mb-4 bg-purple-700 backdrop-blur-lg rounded-xl p-6 
                border border-white/10 shadow-lg transform-gpu transition-all duration-300 ease-in-out
                hover:scale-[1.02] hover:shadow-2xl hover:border-white/20"
               style={{

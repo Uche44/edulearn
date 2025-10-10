@@ -7,7 +7,7 @@ interface ComingSoonProps {
 
 const ComingSoon: React.FC<ComingSoonProps> = ({ featureName }) => {
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-white text-center px-6 overflow-hidden">
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center px-6 overflow-hidden">
       {/* Floating purple glow accent */}
       <div className="absolute -top-20 -right-20 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-40 animate-pulse"></div>
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-30 animate-pulse"></div>
@@ -30,9 +30,9 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ featureName }) => {
       </p>
 
       {/* Button */}
-      <button className="bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:bg-purple-700 transition duration-300 transform hover:-translate-y-1">
+      {/* <button className="bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:bg-purple-700 transition duration-300 transform hover:-translate-y-1">
         Notify Me
-      </button>
+      </button> */}
 
       {/* Footer */}
       <div className="mt-10 flex justify-center items-center gap-2 text-sm text-gray-400">
