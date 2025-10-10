@@ -19,7 +19,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="bg-white z-100 absolute py-10 w-[70%] md:w-[23%] h-screen flex flex-col items-center shadow-lg">
+    <aside className="bg-white min-h-screen z-100 absolute py-10 w-[70%] md:w-[23%] h-screen flex flex-col items-center shadow-lg">
       {/* Logo / Branding */}
       <div className="mb-10 flex items-center">
         <img

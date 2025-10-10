@@ -98,7 +98,7 @@ const Welcomeuser: React.FC<WelcomeuserProps> = ({ userName }) => {
 
         <button
           onClick={registerChosenCourse}
-          className="outline-none px-7 py-3 bg-purple-700 rounded-3xl mt-4 cursor-pointer hover:brightness-125 text-white"
+          className="outline-none p-3 md:px-7 md:py-3 bg-purple-700 rounded-3xl mt-4 cursor-pointer hover:brightness-125 text-white"
         >
           Sign Up Now
         </button>

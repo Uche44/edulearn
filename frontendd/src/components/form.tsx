@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import Loading from "./loading";
 import { toast } from "sonner";
 import type { TokenPayload } from "../types";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Form: React.FC<FormProps> = ({ route, method }) => {
   const { setProfile } = useUserProfile();
@@ -18,6 +19,7 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
   });
   const [errors, setErrors] = useState<ErrorType>({});
   const [loading, setLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<Boolean>(false);
   const navigate = useNavigate();
 
   const validate = () => {
@@ -55,7 +57,11 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
       setLoading(false);
       console.log(err);
       setErrors({ general: "Login failed. Please check your credentials." });
-      toast("Login failed. Please check your credentials.");
+      toast(
+        method === "login"
+          ? "Login failed. Please check your credentials."
+          : "Sign up failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -86,23 +92,30 @@ const Form: React.FC<FormProps> = ({ route, method }) => {
             onChange={(e) =>
               setFormData({ ...formData, username: e.target.value })
             }
-            className="w-full p-3 rounded-lg bg-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-violet-300"
+            className="w-full p-3 rounded-lg bg-white/20 text-gray-600 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-300"
           />
           {errors.username && (
             <p className="text-red-400 text-sm mt-1">{errors.username}</p>
           )}
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 w-full flex items-center gap-2 bg-white/20 rounded-lg">
           <input
-            type="password"
+            type={isPasswordVisible ? "text" : "password"}
             placeholder="Password"
             value={formData.password}
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
-            className="w-full p-3 rounded-lg bg-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-violet-300"
+            className="w-full p-3 rounded-lg text-gray-600 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-violet-300"
           />
+          <button
+            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            className=" pr-4 py-3 cursor-pointer text-gray-600"
+            type="button"
+          >
+            {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+          </button>
           {errors.password && (
             <p className="text-red-400 text-sm mt-1">{errors.password}</p>
           )}

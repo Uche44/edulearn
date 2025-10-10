@@ -45,7 +45,7 @@ const ClassCalendar = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-md mx-auto py-4">
       <h2 className="text-2xl font-bold mb-4 text-center text-purple-700">
         Class Schedule
       </h2>
